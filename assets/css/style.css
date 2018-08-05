@@ -846,7 +846,7 @@ nav{
 	text-transform: none;
 	box-shadow: none !important;
 	background-color: transparent;
-	border: 1px solid #222;
+	border: 1px solid #000;
 	color: #222;
 	width: 200px;
 	margin-top: 2%;
@@ -854,7 +854,7 @@ nav{
 }
 
 .btn:hover{
-	background-color: #222 !important;
+	background-color: #000 !important;
 	color: white;
 }
 
