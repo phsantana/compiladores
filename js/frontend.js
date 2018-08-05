@@ -20,28 +20,28 @@ function createCol(tamM, tamS, offset){
  • 1º param: tamanho da coluna em resolução normal
  • 2º param: tamanho da coluna em resolução menor (mobile)
  • 3º param: caso haja offset
-*/
-	var col = document.createElement("div");
-	col.classList.add("col");
+ */
+ var col = document.createElement("div");
+ col.classList.add("col");
 
-	if(typeof(tamM) != "undefined")
-		col.classList.add("m"+tamM);
+ if(typeof(tamM) != "undefined")
+ 	col.classList.add("m"+tamM);
 
-	if(typeof(tamS) != "undefined")
-		col.classList.add("s"+tamS);
+ if(typeof(tamS) != "undefined")
+ 	col.classList.add("s"+tamS);
 
-	if(typeof(offset) != "undefined")
-		col.classList.add("offset-m"+offset);
+ if(typeof(offset) != "undefined")
+ 	col.classList.add("offset-m"+offset);
 
-	return col;
+ return col;
 }
 
 function createRow(){
 //Esta função cria uma <div class="row">
-	var row = document.createElement("div");
-	row.classList.add("row");
+var row = document.createElement("div");
+row.classList.add("row");
 
-	return row;
+return row;
 }
 
 function createTopo(tipo,cor,texto){
@@ -49,83 +49,117 @@ function createTopo(tipo,cor,texto){
  • 1º param: tipo da topologia (tamanho)
  • 2º param: cor do texto
  • 3º param: texto que ficará na topologia
-*/
-	var h = document.createElement("h"+tipo);
-	h.innerHTML = texto;
+ */
+ var h = document.createElement("h"+tipo);
+ h.innerHTML = texto;
 
-	if(typeof(cor) != "undefined")
-		h.style.color = cor;
+ if(typeof(cor) != "undefined")
+ 	h.style.color = cor;
 
-	return h;
+ return h;
 }
 
 function createTxtArea(row,col){
 /*Esta função cria um elemento <textarea>
  • 1º param: número de linhas
  • 2º param: número de colunas
-*/
-	var textArea = document.createElement("textarea");
-	textArea.setAttribute("rows", row);
-	textArea.setAttribute("cols", col);
+ */
+ var textArea = document.createElement("textarea");
+ textArea.setAttribute("rows", row);
+ textArea.setAttribute("cols", col);
 
-	return textArea;
+ return textArea;
 }
 
 function createButton(texto){
 /*Esta função cria um elemento <button>
- • 1º param: texto que ficará no botão*/
-	var button = document.createElement("button");
-	button.innerHTML = texto;
-	button.classList.add("btn");
+• 1º param: texto que ficará no botão*/
+var button = document.createElement("button");
+button.innerHTML = texto;
+button.classList.add("btn");
 
-	return button;
+return button;
+}
+
+function createTable(){
+	var table 	= document.createElement("table");
+	var tr 		= document.createElement("tr");
+	var th 		= new Array();
+	var content = ["TOKENS", "MESSAGE"];
+
+	for(let i = 0; i < 2; i++){
+		th.push(document.createElement("th"));
+		th[i].innerHTML = content[i];
+	}
+
+	for(let i = 0; i < 2; i++)
+		tr.appendChild(th[i]);
+
+	return table;
+}
+
+function createTD(conteudo){
+	var td = document.createElement("td");
+	td.innerHTML = conteudo;
+
+	return td;
+}
+
+function addContentInARow(table,tds){
+
+	var tr = document.createElement("tr");
+
+	for(let i = 0; i < tds.length; i++)
+		tr.appendChild(tds[i]);
+
+	table.appendChild(tr);
 }
 
 function addAnimation(obj,nome,duracao,tipo){
 //Adiciona animações ao elemento
-	var animations = [
-	"fadeIn",
-	"fadeInLeft",
-	"fadeInRight",
-	"fadeInDown",
-	"fadeInUp",
-	"fadeOut",
-	"fadeOutUp",
-	"slideRight",
-	"slideIn",
-	"slideOut",
-	"inArrow",
-	"inMenu",
-	"pop",
-	"popupIn",
-	"popupOut",
-	"blub",
-	"grow",
-	"comeLeft",
-	"growNDecrease"
-	];
+var animations = [
+"fadeIn",
+"fadeInLeft",
+"fadeInRight",
+"fadeInDown",
+"fadeInUp",
+"fadeOut",
+"fadeOutUp",
+"slideRight",
+"slideIn",
+"slideOut",
+"inArrow",
+"inMenu",
+"pop",
+"popupIn",
+"popupOut",
+"blub",
+"grow",
+"comeLeft",
+"growNDecrease"
+];
 
-	obj.style.animation = animations[nome]+" "+duracao+"s"+" "+tipo;
+obj.style.animation = animations[nome]+" "+duracao+"s"+" "+tipo;
 }
 
 function setFont(obj, fonte){
 //Altera a fonte de um elemento
-	var fontes = [
-	"brandon_r",
-	"brandon_t",
-	"brandon_l",
-	"brandon_n",
-	"brandon_m",
-	"tw_cent",
-	"levenim",
-	"poiret",
-	"gtamerica_l",
-	"gtamerica_ui",
-	"gtamerica",
-	"tw_cent_cnd"
-	];
+var fontes = [
+"brandon_r",
+"brandon_t",
+"brandon_l",
+"brandon_n",
+"brandon_m",
+"tw_cent",
+"levenim",
+"poiret",
+"gtamerica_l",
+"gtamerica_ui",
+"gtamerica",
+"tw_cent_cnd"
+];
 
-	obj.classList.add(fontes[fonte]);
+obj.classList.add(fontes[fonte]);
 }
 
 /****************FUNÇÕES PRINCIPAIS**********************/
@@ -134,22 +168,22 @@ window.onload = bootstrap();
 
 function bootstrap(){
 //Dá o ponta pé inicial chamando as funções mais importantes para iniciar a aplicação
-	inicialPage();
-	rollTitle();
+inicialPage();
+rollTitle();
 }
 
 function inicialPage(){
 //Inicia os ícones de menu da página
 
-	var icons 	= document.querySelectorAll("i");
+var icons 	= document.querySelectorAll("i");
 
-	setTimeout(function(){
-		for(let i = 0; i < icons.length; i++){
-			icons[i].style.visibility = 'visible';
-			icons[i].style.opacity = '1';
-			icons[i].style.animation = "pop 1s ease";
-		}
-	},1500);
+setTimeout(function(){
+	for(let i = 0; i < icons.length; i++){
+		icons[i].style.visibility = 'visible';
+		icons[i].style.opacity = '1';
+		icons[i].style.animation = "pop 1s ease";
+	}
+},1500);
 }
 
 function rollTitle(){
@@ -270,10 +304,16 @@ document.querySelector("#lexico").onclick = function(){
 		setFont(button,2);
 		addAnimation(button,4,2,"ease");
 
+		//ANALISADOR
 		button.addEventListener("click", function(){
-			var compilador = new Compilador();
+			var compilador 	= new Compilador();
+			var tabela 		= createTable();
+			var results		= ["INTEGER","FLOAT","OPERADOR","ERRO"];
 
+			compilador.setRules('a|b|c');
 			compilador.analisarLexico(txtArea.value);
+
+			var headers		= compilador.getTokens();
 		});
 
 		colButton.appendChild(button);
