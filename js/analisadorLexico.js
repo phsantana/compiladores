@@ -1,32 +1,55 @@
 var analisadorLexico = function() {
 
 	var rules;
+	var tokens = new Array();
 
 	this.analisarLexico = analisarLexico;
 
 	function analisarLexico(lexemas){
+		var classificacao;
 		lexemas = lexemas.split(" ");
 
 		for(var i = 0; i < lexemas.length; i++){
 			if(isInteger(lexemas[i])){
-				console.log(lexemas[i] + " é inteiro");
+				classificacao = "INT";
 			}
 			else if(isFloat(lexemas[i])){
-				console.log(lexemas[i] + " é real");
+				classificacao = "REAL";
 			}
-			else if(isOperador(lexemas[i])){
-				console.log(lexemas[i] + " é operador");
+			else if(isSoma(lexemas[i])){
+				classificacao = "OPSOMA";
 			}
-			else if(isPS(lexemas[i])){
-				console.log(lexemas[i] + " é PS");
+			else if(isSub(lexemas[i])){
+				classificacao = "OPSUB";
 			}
-			else if(isPD(lexemas[i])){
-				console.log(lexemas[i] + " é PD");
+			else if(isMult(lexemas[i])){
+				classificacao = "OPMUL";
+			}
+			else if(isDiv(lexemas[i])){
+				classificacao = "OPDIV";
+			}
+			else if(isAP(lexemas[i])){
+				classificacao = "AP";
+			}
+			else if(isFP(lexemas[i])){
+				classificacao = "FP";
 			}
 			else{
-				console.log(lexemas[i] + " não foi identificado");
+				classificacao = "ERRO";
 			}
+
+			addToken({simbolo:lexemas[i], tipo:classificacao});
 		}
+
+		console.log(tokens);
+	}
+
+	function addToken(token){
+		tokens.push(token); 
+	}
+
+	function getTokens(){
+		return tokens;
 	}
 
 	function isInteger(lexema) {
@@ -41,19 +64,37 @@ var analisadorLexico = function() {
 		return rules.test(lexema);
 	}
 
-	function isOperador(lexema){
-		rules = new RegExp(/^([-+*\/])$/);
+	function isSoma(lexema){
+		rules = new RegExp(/^([+])$/);
 
 		return rules.test(lexema);
 	}
 
-	function isPS(lexema){
+	function isSub(lexema){
+		rules = new RegExp(/^([-])$/);
+
+		return rules.test(lexema);
+	}
+
+	function isMult(lexema){
+		rules = new RegExp(/^([*])$/);
+
+		return rules.test(lexema);
+	}
+
+	function isDiv(lexema){
+		rules = new RegExp(/^([\/])$/);
+
+		return rules.test(lexema);
+	}
+
+	function isAP(lexema){
 		rules = new RegExp(/^([(])$/);
 
 		return rules.test(lexema);
 	}
 
-	function isPD(lexema){
+	function isFP(lexema){
 		rules = new RegExp(/^([)])$/);
 
 		return rules.test(lexema);
