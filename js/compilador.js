@@ -18,7 +18,7 @@ var Compilador = function(){
 		return tokens;
 	}
 
-	function analisarLexico(lexemas, tabela){
+	function analisarLexico(lexemas){
 
 		for(let i = 0; i < lexemas.length; i++){
 			if(rules.test(lexemas[i]) != false){
