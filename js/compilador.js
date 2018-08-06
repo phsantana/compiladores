@@ -17,9 +17,22 @@ var Compilador = function(){
 	function getTokens(){
 		return tokens;
 	}
-
-	function setRules(expressao){
+  
+  function setRules(expressao){
 		rules = new RegExp(expressao);
+  }
+  
+	function analisarLexico(lexemas){
+
+		for(let i = 0; i < lexemas.length; i++){
+			if(rules.test(lexemas[i]) != false){
+				setToken(lexemas[i]);
+			}
+			else
+				alert(lexemas[i] + " não corresponde à regra");
+		}
+
+		alert(tokens);
 	}
 
 	function analisarSintatico(){

@@ -84,7 +84,9 @@ return button;
 function createTable(){
 	var table 	= document.createElement("table");
 	var tr 		= document.createElement("tr");
+	var thead 	= document.createElement("thead");
 	var th 		= new Array();
+	var tbody 	= document.createElement("tbody");
 	var content = ["TOKENS", "MESSAGE"];
 
 	for(let i = 0; i < 2; i++){
@@ -95,7 +97,18 @@ function createTable(){
 	for(let i = 0; i < 2; i++)
 		tr.appendChild(th[i]);
 
+	thead.appendChild(tr);
+	table.appendChild(thead);
+	table.appendChild(tbody);
+
 	return table;
+}
+
+function createTH(conteudo){
+	var th = document.createElement("th");
+	th.innerHTML = conteudo;
+
+	return th;
 }
 
 function createTD(conteudo){
@@ -105,7 +118,7 @@ function createTD(conteudo){
 	return td;
 }
 
-function addContentInARow(table,tds){
+function addContentInARow(table,th,td){
 
 	var tr = document.createElement("tr");
 
@@ -307,13 +320,26 @@ document.querySelector("#lexico").onclick = function(){
 		//ANALISADOR
 		button.addEventListener("click", function(){
 			var analisador 	= new analisadorLexico();
+
 			var tabela 		= createTable();
-			var results		= ["INTEGER","FLOAT","OPERADOR","ERRO"];
+			var tbody 		= document.querySelector("tbody");
+			var classificador = ["INTEGER","FLOAT","OPERADOR","ERRO"];
+      analisador.analisarLexico(txtArea.value);
 
-			analisador.analisarLexico(txtArea.value);
+			var iterator = classificador.keys();
 
-			// var headers		= analisador.getTokens();
-		});
+			for (let key of iterator) {
+  				alert(key); // expected output: 0 1 2
+  			}
+
+  			var compilador 	= new Compilador();
+
+  			compilador.setRules('a|b|c');
+  			compilador.analisarLexico(txtArea.value);
+
+  			var headers		= compilador.getTokens();
+  		});
+
 
 		colButton.appendChild(button);
 		r3.appendChild(colButton);
