@@ -18,8 +18,17 @@ var Compilador = function(){
 		return tokens;
 	}
 
-	function analisarLexico(lexemas){
-		alert(lexemas);
+	function analisarLexico(lexemas, tabela){
+
+		for(let i = 0; i < lexemas.length; i++){
+			if(rules.test(lexemas[i]) != false){
+				setToken(lexemas[i]);
+			}
+			else
+				alert(lexemas[i] + " não corresponde à regra");
+		}
+
+		alert(tokens);
 	}
 
 	function analisarSintatico(){
@@ -31,6 +40,6 @@ var Compilador = function(){
 	}
 
 	function setRules(expressao){
-		rules = new RegExp('[0-9]+', 'm');
+		rules = new RegExp(expressao);
 	}
 }
