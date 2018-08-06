@@ -319,9 +319,12 @@ document.querySelector("#lexico").onclick = function(){
 
 		//ANALISADOR
 		button.addEventListener("click", function(){
+			var analisador 	= new analisadorLexico();
+
 			var tabela 		= createTable();
 			var tbody 		= document.querySelector("tbody");
 			var classificador = ["INTEGER","FLOAT","OPERADOR","ERRO"];
+      analisador.analisarLexico(txtArea.value);
 
 			var iterator = classificador.keys();
 
@@ -336,6 +339,7 @@ document.querySelector("#lexico").onclick = function(){
 
   			var headers		= compilador.getTokens();
   		});
+
 
 		colButton.appendChild(button);
 		r3.appendChild(colButton);

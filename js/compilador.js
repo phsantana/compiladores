@@ -17,7 +17,11 @@ var Compilador = function(){
 	function getTokens(){
 		return tokens;
 	}
-
+  
+  function setRules(expressao){
+		rules = new RegExp(expressao);
+  }
+  
 	function analisarLexico(lexemas){
 
 		for(let i = 0; i < lexemas.length; i++){
@@ -37,9 +41,5 @@ var Compilador = function(){
 
 	function analisarSemantico(){
 
-	}
-
-	function setRules(expressao){
-		rules = new RegExp(expressao);
 	}
 }
