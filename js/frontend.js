@@ -306,14 +306,13 @@ document.querySelector("#lexico").onclick = function(){
 
 		//ANALISADOR
 		button.addEventListener("click", function(){
-			var compilador 	= new Compilador();
+			var analisador 	= new analisadorLexico();
 			var tabela 		= createTable();
 			var results		= ["INTEGER","FLOAT","OPERADOR","ERRO"];
 
-			compilador.setRules('a|b|c');
-			compilador.analisarLexico(txtArea.value);
+			analisador.analisarLexico(txtArea.value);
 
-			var headers		= compilador.getTokens();
+			// var headers		= analisador.getTokens();
 		});
 
 		colButton.appendChild(button);

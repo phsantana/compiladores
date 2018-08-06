@@ -18,17 +18,8 @@ var Compilador = function(){
 		return tokens;
 	}
 
-	function analisarLexico(lexemas, tabela){
-
-		for(let i = 0; i < lexemas.length; i++){
-			if(rules.test(lexemas[i]) != false){
-				setToken(lexemas[i]);
-			}
-			else
-				alert(lexemas[i] + " não corresponde à regra");
-		}
-
-		alert(tokens);
+	function setRules(expressao){
+		rules = new RegExp(expressao);
 	}
 
 	function analisarSintatico(){
@@ -37,9 +28,5 @@ var Compilador = function(){
 
 	function analisarSemantico(){
 
-	}
-
-	function setRules(expressao){
-		rules = new RegExp(expressao);
 	}
 }
