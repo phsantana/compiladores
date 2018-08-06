@@ -323,22 +323,8 @@ document.querySelector("#lexico").onclick = function(){
 
 			var tabela 		= createTable();
 			var tbody 		= document.querySelector("tbody");
-			var classificador = ["INTEGER","FLOAT","OPERADOR","ERRO"];
-      analisador.analisarLexico(txtArea.value);
-
-			var iterator = classificador.keys();
-
-			for (let key of iterator) {
-  				alert(key); // expected output: 0 1 2
-  			}
-
-  			var compilador 	= new Compilador();
-
-  			compilador.setRules('a|b|c');
-  			compilador.analisarLexico(txtArea.value);
-
-  			var headers		= compilador.getTokens();
-  		});
+			analisador.analisarLexico(txtArea.value);
+		});
 
 
 		colButton.appendChild(button);
