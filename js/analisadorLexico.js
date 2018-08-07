@@ -4,12 +4,13 @@ var analisadorLexico = function() {
 	var tokens = new Array();
 
 	this.analisarLexico = analisarLexico;
-//2+(-2+2)
+
 	function preProcessadorEntrada(entrada){
 		var aux = entrada;
 		var lexemaAux
 
 		entrada = entrada.replace(/[0-9]+/g, "#");
+		entrada = entrada.replace(/[\.]/g, "#");
 		var numeros = aux.split(/[^0-9\.]+/);
 		var operadores = entrada.split("#").filter(function(n){return n});
 		var lexemas = [];
