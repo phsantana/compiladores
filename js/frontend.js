@@ -15,6 +15,13 @@ var bg = document.createElement("div");
 
 /*************FUNÇÕES AUXILIARES***************/
 
+function createDIV(classe){
+	var div = document.createElement("div");
+	div.classList.add(classe);
+
+	return div;
+}
+
 function createCol(tamM, tamS, offset){
 /*Esta função cria as colunas do Materialize <div class="col mX sX offset-mX">
  • 1º param: tamanho da coluna em resolução normal
@@ -326,11 +333,10 @@ document.querySelector("#lexico").onclick = function(){
 			if(document.querySelector(".result")){
 				document.querySelector(".result").parentNode.removeChild(document.querySelector(".result"));
 			}
+
 			var analisador 	= new analisadorLexico();
 
-			var result 		= document.createElement("div");
-			result.classList.add("result");
-
+			var result 		= createDIV("result");
 			var tabela 		= createTable();
 
 			var tbody 		= tabela.lastChild;
