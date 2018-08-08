@@ -85,9 +85,11 @@ function createTable(){
 	var table 	= document.createElement("table");
 	var tr 		= document.createElement("tr");
 	var thead 	= document.createElement("thead");
+	thead.classList.add("brandon_l");
+
 	var th 		= new Array();
 	var tbody 	= document.createElement("tbody");
-	var content = ["TOKENS", "MESSAGE"];
+	var content = ["SÍMBOLO", "TIPO"];
 
 	for(let i = 0; i < 2; i++){
 		th.push(document.createElement("th"));
@@ -118,14 +120,15 @@ function createTD(conteudo){
 	return td;
 }
 
-function addContentInARow(table,th,td){
-
+function addContentInARow(tbody,header,content){
 	var tr = document.createElement("tr");
+	var th = createTH(header);
+	var td = createTD(content);
 
-	for(let i = 0; i < tds.length; i++)
-		tr.appendChild(tds[i]);
+	tr.appendChild(th);
+	tr.appendChild(td);
 
-	table.appendChild(tr);
+	tbody.appendChild(tr);
 }
 
 function addAnimation(obj,nome,duracao,tipo){
@@ -319,11 +322,29 @@ document.querySelector("#lexico").onclick = function(){
 
 		//ANALISADOR
 		button.addEventListener("click", function(){
+
+			if(document.querySelector(".result")){
+				document.querySelector(".result").parentNode.removeChild(document.querySelector(".result"));
+			}
 			var analisador 	= new analisadorLexico();
 
+			var result 		= document.createElement("div");
+			result.classList.add("result");
+
 			var tabela 		= createTable();
-			var tbody 		= document.querySelector("tbody");
+
+			var tbody 		= tabela.lastChild;
+			tbody.classList.add("brandon_r");
+
 			analisador.analisarLexico(txtArea.value);
+
+			var tokens = analisador.getTokens();
+
+			for(var i in tokens)
+				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+
+			result.appendChild(tabela);
+			bg.appendChild(result);
 		});
 
 

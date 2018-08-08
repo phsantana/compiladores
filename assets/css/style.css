@@ -192,7 +192,7 @@ html,body{
 	font-size: 12pt;
 }
 
-.results h4{
+.result h4{
 	float: left;
 }
 
@@ -277,12 +277,19 @@ html,body{
 	/* transition: all ease .5s; */
 }
 
-.results{
-	height: 80%;
-	width: 50%;
+.result{
+	height: auto;
+	width: 100%;
 	display: block;
 	position: absolute;
-	background-color: rgb(255,255,255);
+	background-color: transparent;
+	bottom: 0;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	   -moz-transform: translateX(-50%);
+	    -ms-transform: translateX(-50%);
+	     -o-transform: translateX(-50%);
+	        transform: translateX(-50%);
 }
 
 .container .results{
@@ -418,6 +425,11 @@ div #soma .popupoff{
 /*TABELA*/
 
 
+table{
+	background-color: black;
+	animation: fadeInUp 1s ease;
+}
+
 table tr, th{
 	text-align: center;
 	text-transform: uppercase;
@@ -426,7 +438,11 @@ table tr, th{
 tr,th,td{
 	border-radius: 0 !important;
 	font-size: 11pt;
-	animation: fadeInLeft 1s ease;
+	/* animation: fadeInLeft 1s ease; */
+}
+
+th,td{
+	width: 50%;
 }
 
 table thead tr,

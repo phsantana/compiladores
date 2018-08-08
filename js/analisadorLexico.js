@@ -4,6 +4,7 @@ var analisadorLexico = function() {
 	var tokens = new Array();
 
 	this.analisarLexico = analisarLexico;
+	this.getTokens = getTokens;
 
 	function preProcessadorEntrada(entrada){
 		var aux = entrada;
