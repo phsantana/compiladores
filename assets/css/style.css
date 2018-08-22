@@ -1016,3 +1016,6 @@ textarea:focus{
 	z-index: 3;
 }
 
+.teste{
+	display: none;
+}
