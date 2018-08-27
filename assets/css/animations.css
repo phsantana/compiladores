@@ -70,6 +70,45 @@
 	}
 }
 
+@keyframes fadeOutLeft{
+	from{
+		transform: translateX(0);
+		opacity: 1;
+		visibility: visible;
+	}
+	to{
+		transform: translateX(-30%);
+		opacity: 0;
+		visibility: hidden;
+	}	
+}
+
+@keyframes fadeOutRight{
+	from{
+		transform: translateX(0);
+		opacity: 1;
+		visibility: visible;
+	}
+	to{
+		transform: translateX(30%);
+		opacity: 0;
+		visibility: hidden;
+	}	
+}
+
+@keyframes fadeOutDown{
+	from{
+		transform: translateY(0);
+		opacity: 1;
+		visibility: visible;
+	}
+	to{
+		transform: translateY(10%);
+		opacity: 0;
+		visibility: hidden;
+	}	
+}
+
 @keyframes fadeOutUp{
 	from{
 		opacity: 1;
