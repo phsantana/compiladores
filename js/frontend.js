@@ -9,15 +9,21 @@ BY: Gustavo Gimenez e Phillipe Sant'Ana
 
 /*************VARIÁVEIS GLOBAIS*******************/
 
-var bg = document.createElement("div");
-
-
+var bg 		= document.createElement("div");
+var body 	= document.querySelector("body");
 
 /*************FUNÇÕES AUXILIARES***************/
 
-function createDIV(classe){
+function createDIV(classe,title){
 	var div = document.createElement("div");
-	div.classList.add(classe);
+
+	if(typeof(classe) != undefined){
+		for(let i = 0; i < classe.length; i++)
+			div.classList.add(classe[i]);
+	}
+
+	if(typeof(title) != "undefined")
+		div.title = title;
 
 	return div;
 }
@@ -51,7 +57,7 @@ row.classList.add("row");
 return row;
 }
 
-function createTopo(tipo,cor,texto){
+function createTopo(tipo,cor,texto,align){
 /*Esta função cria uma topologia <hX>
  • 1º param: tipo da topologia (tamanho)
  • 2º param: cor do texto
@@ -62,6 +68,9 @@ function createTopo(tipo,cor,texto){
 
  if(typeof(cor) != "undefined")
  	h.style.color = cor;
+
+ if(typeof(align) != undefined)
+ 	h.style.textAlign = align;
 
  return h;
 }
@@ -138,6 +147,36 @@ function addContentInARow(tbody,header,content){
 	tbody.appendChild(tr);
 }
 
+function createINPUT(id,type,name,classe){
+	var input = document.createElement("input");
+
+	if(typeof(id) != undefined)
+		input.id = id;
+
+	if(typeof(classe) != undefined){	
+		for(let i = 0; i < classe.length; i++)
+			input.classList.add(classe[i]);
+	}
+
+	input.name = name;
+	input.type = type;
+
+	return input;
+}
+
+function createLabel(link, classe){
+	var label = document.createElement("label");
+
+	label.setAttribute("for",link);
+
+	if(typeof(classe) != undefined){
+		for(let i = 0; i < classe.length; i++)
+			label.classList.add(classe[i]);
+	}
+
+	return label;
+}
+
 function addAnimation(obj,nome,duracao,tipo){
 //Adiciona animações ao elemento
 var animations = [
@@ -147,6 +186,9 @@ var animations = [
 "fadeInDown",
 "fadeInUp",
 "fadeOut",
+"fadeOutLeft",
+"fadeOutRight",
+"fadeOutDown",
 "fadeOutUp",
 "slideRight",
 "slideIn",
@@ -185,28 +227,122 @@ var fontes = [
 obj.classList.add(fontes[fonte]);
 }
 
-/****************FUNÇÕES PRINCIPAIS**********************/
+/************FUNÇÕES PRINCIPAIS****************/
 
 window.onload = bootstrap();
 
 function bootstrap(){
 //Dá o ponta pé inicial chamando as funções mais importantes para iniciar a aplicação
-inicialPage();
-rollTitle();
+choosePath();
+// inicialPage();
+// rollTitle();
 }
 
-function inicialPage(){
+function choosePath(){
+	var main 		 = createDIV(["cover"]);
+	main.style.backgroundColor = "rgba(0,0,0,.85)";
+	main.style.display = "block";
+	main.style.zIndex = '5';
+	main.style.top = "0";
+	main.style.transition = "all ease .5s";
+
+	var hTxt = createTopo(2,"black",".txt","center");
+	var hTerm = createTopo(2,"black","abc","center");
+
+	hTxt.classList.add("levenim");
+	hTerm.classList.add("levenim");
+
+	var container = createDIV(["container-choose-path"]);
+
+	var r1 = createRow();
+	var colInfo = createCol(12);
+	var h3 = createTopo(3,"white","SELECIONE O TIPO DA ENTRADA","center");
+	h3.classList.add("tw_cent");
+
+	addAnimation(h3,4,2,"ease");
+
+	r1.appendChild(colInfo);
+	colInfo.appendChild(h3);
+	main.appendChild(r1);
+	// colInfo.classList.add("center");
+
+	var row 	= createRow();
+	var colTxt 	= createCol(6);
+	var colTerm	= createCol(6);
+
+	row.appendChild(colTxt);
+	row.appendChild(colTerm);
+
+	var file 	 = createINPUT("arquivo","file","arquivo",["undefined"]);
+	var txt 	 = createLabel("arquivo",["path"]);
+	var terminal = createDIV(["path"], "Terminal");
+
+	txt.title = "Arquivo";
+
+	file.style.display = 'none';
+	colTxt.appendChild(file);
+
+	txt.appendChild(hTxt);
+	terminal.appendChild(hTerm);
+
+	txt.style.float = "right";
+
+	colTxt.style.paddingRight = "5%";
+	colTerm.style.paddingLeft = "5%";
+
+	colTxt.appendChild(txt);
+	colTerm.appendChild(terminal);
+
+	body.appendChild(main);
+	main.appendChild(container);
+	container.appendChild(row);
+
+	/*************EVENTOS*************/
+
+	txt.addEventListener("click", function(){
+
+		file.onchange = function(){	
+			setTimeout(function(){
+				main.parentNode.removeChild(main);
+			},1500);
+
+			addAnimation(main,5,1.5,"ease");
+			addAnimation(txt,6,1.5,"ease");
+			addAnimation(terminal,7,1.5,"ease");
+
+			inicialPage();
+			rollTitle();
+		}
+	});
+
+	terminal.addEventListener("click", function(){
+		setTimeout(function(){
+			main.parentNode.removeChild(main);
+		},1500);
+		addAnimation(main,5,1.5,"ease");
+		addAnimation(this,7,1.5,"ease");
+		addAnimation(txt,6,1.5,"ease");
+
+		inicialPage();
+		rollTitle();
+	});
+	
+	//inicialPage();
+}
+
+
 //Inicia os ícones de menu da página
+function inicialPage(){
 
-var icons 	= document.querySelectorAll("i");
+	var icons 	= document.querySelectorAll("i");
 
-setTimeout(function(){
-	for(let i = 0; i < icons.length; i++){
-		icons[i].style.visibility = 'visible';
-		icons[i].style.opacity = '1';
-		icons[i].style.animation = "pop 1s ease";
-	}
-},1500);
+	setTimeout(function(){
+		for(let i = 0; i < icons.length; i++){
+			icons[i].style.visibility = 'visible';
+			icons[i].style.opacity = '1';
+			icons[i].style.animation = "pop 1s ease";
+		}
+	},1500);
 }
 
 function rollTitle(){
@@ -233,9 +369,7 @@ function rollTitle(){
 	},3000);
 }
 
-/*
-**********************EVENTOS************************
-*/
+/******************EVENTOS******************/
 
 document.querySelector("#menu").onclick = function(){
 
@@ -336,9 +470,8 @@ document.querySelector("#lexico").onclick = function(){
 
 			var analisador 	= new analisadorLexico();
 
-			var result 		= createDIV("result");
+			var result 		= createDIV(["result"]);
 			var tabela 		= createTable();
-
 			var tbody 		= tabela.lastChild;
 			tbody.classList.add("brandon_r");
 
@@ -352,7 +485,6 @@ document.querySelector("#lexico").onclick = function(){
 			result.appendChild(tabela);
 			bg.appendChild(result);
 		});
-
 
 		colButton.appendChild(button);
 		r3.appendChild(colButton);
