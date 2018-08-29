@@ -23,3 +23,6 @@ const AP = /^([(])$/;
 
 // Fecha parenteses
 const FP = /^([)])$/;
+
+// Espaço em branco
+const ESP = /^([\n])$/
