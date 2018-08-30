@@ -19,7 +19,7 @@ window.onload = bootstrap();
 function bootstrap(){
 //Dá o ponta pé inicial chamando as funções mais importantes para iniciar a aplicação
 choosePath();
-// inicialPage();
+// startIcons();
 // rollTitle();
 }
 
@@ -95,7 +95,7 @@ function choosePath(){
 			addAnimation(txt,6,1.5,"ease");
 			addAnimation(terminal,7,1.5,"ease");
 
-			inicialPage();
+			startIcons();
 			rollTitle();
 		}
 	});
@@ -108,16 +108,16 @@ function choosePath(){
 		addAnimation(this,7,1.5,"ease");
 		addAnimation(txt,6,1.5,"ease");
 
-		inicialPage();
+		startIcons();
 		rollTitle();
 	});
 	
-	//inicialPage();
+	//startIcons();
 }
 
 
 //Inicia os ícones de menu da página
-function inicialPage(){
+function startIcons(){
 
 	var icons 	= document.querySelectorAll("i");
 
