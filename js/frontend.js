@@ -6,7 +6,6 @@ BY: Gustavo Gimenez e Phillipe Sant'Ana
 ***/
 
 
-
 /*************VARIÁVEIS GLOBAIS*******************/
 
 var bg 		= document.createElement("div");
@@ -19,7 +18,7 @@ window.onload = bootstrap();
 function bootstrap(){
 //Dá o ponta pé inicial chamando as funções mais importantes para iniciar a aplicação
 choosePath();
-// inicialPage();
+// startIcons();
 // rollTitle();
 }
 
@@ -81,4 +80,73 @@ function choosePath(){
 	body.appendChild(main);
 	main.appendChild(container);
 	container.appendChild(row);
+
+	txt.addEventListener("click", function(){
+
+		file.onchange = function(){	
+			setTimeout(function(){
+				main.parentNode.removeChild(main);
+			},1500);
+
+			addAnimation(main,5,1.5,"ease");
+			addAnimation(txt,6,1.5,"ease");
+			addAnimation(terminal,7,1.5,"ease");
+
+			startIcons();
+			rollTitle();
+		}
+	});
+
+	terminal.addEventListener("click", function(){
+		setTimeout(function(){
+			main.parentNode.removeChild(main);
+		},1500);
+		addAnimation(main,5,1.5,"ease");
+		addAnimation(this,7,1.5,"ease");
+		addAnimation(txt,6,1.5,"ease");
+
+		startIcons();
+		rollTitle();
+	});
+	
+	//startIcons();
+}
+
+
+//Inicia os ícones de menu da página
+function startIcons(){
+
+	var icons 	= document.querySelectorAll("i");
+
+	setTimeout(function(){
+		for(let i = 0; i < icons.length; i++){
+			icons[i].style.visibility = 'visible';
+			icons[i].style.opacity = '1';
+			icons[i].style.animation = "pop 1s ease";
+		}
+	},1500);
+}
+
+function rollTitle(){
+	var titulo	= document.querySelector("#titulo");
+	var pai 	= titulo.parentNode;
+
+	setTimeout(function(){
+		if(titulo.innerHTML == "COMPILADORES"){
+			titulo.innerHTML = "ANALISADOR LÉXICO";
+		}
+		else{
+			titulo.innerHTML = "COMPILADORES";
+		}
+		titulo.style.animation = "fadeInUp 2s ease";
+	},1000);
+
+	setTimeout(function(){
+
+		pai.removeChild(titulo);
+		titulo.style.animation = "fadeOutUp 1.1s ease";
+		pai.appendChild(titulo);
+
+		rollTitle();
+	},3000);
 }
