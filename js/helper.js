@@ -1,3 +1,8 @@
+/*************VARIÁVEIS GLOBAIS*******************/
+
+var bg 		= document.createElement("div");
+var body 	= document.querySelector("body");
+
 /*************FUNÇÕES AUXILIARES***************/
 
 function createDIV(classe,title){

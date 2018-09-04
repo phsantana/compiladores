@@ -5,12 +5,6 @@
 BY: Gustavo Gimenez e Phillipe Sant'Ana
 ***/
 
-
-/*************VARIÁVEIS GLOBAIS*******************/
-
-var bg 		= document.createElement("div");
-var body 	= document.querySelector("body");
-
 /************FUNÇÕES PRINCIPAIS****************/
 
 window.onload = bootstrap();
