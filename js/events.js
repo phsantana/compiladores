@@ -120,3 +120,14 @@ document.querySelector("#lexico").onclick = function(){
 		bg.appendChild(r3);
 	}
 }
+
+function lerTxt(evt){
+
+	var input = evt.target;
+
+	var reader = new FileReader();
+	
+	reader.onload = function(){
+		console.log(reader.result);
+	}
+}

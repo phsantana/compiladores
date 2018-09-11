@@ -208,6 +208,11 @@ html,body{
 	transform: translate(-50%,-50%);
 }
 
+.path:hover > h2{
+	/* color: black !important; */
+	transition: all ease .3s;
+}
+
 .colorfull{
 	color: white;
 	animation: colorfull 3.5s linear infinite;
@@ -387,7 +392,8 @@ div #soma .popupoff{
 	background-color: white;
 	position: relative;
 	border-radius: 100%;
-	box-shadow: 5px 5px 15px black;
+	/* border: 2px solid white; */
+	/* box-shadow: 5px 5px 15px black; */
 	-webkit-transition: all ease .5s;
 	-moz-transition: all ease .5s;
 	-ms-transition: all ease .5s;
@@ -398,7 +404,8 @@ div #soma .popupoff{
 
 .path:hover{
 	cursor: pointer;
-	box-shadow: 15px 15px 15px black;
+	/* background-color: white; */
+	/* box-shadow: 15px 15px 15px black; */
 	-webkit-transition: all ease .5s;
 	-moz-transition: all ease .5s;
 	-ms-transition: all ease .5s;

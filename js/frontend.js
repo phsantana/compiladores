@@ -1,6 +1,6 @@
 function choosePath(){
 	var main 		 = createDIV(["cover"]);
-	main.style.backgroundColor = "rgba(0,0,0,.85)";
+	main.style.backgroundColor = "rgba(0,0,0,.95)";
 	main.style.display = "block";
 	main.style.zIndex = '5';
 	main.style.top = "0";
@@ -16,13 +16,13 @@ function choosePath(){
 
 	var r1 = createRow();
 	var colInfo = createCol(12);
-	var h3 = createTopo(3,"white","SELECIONE O TIPO DA ENTRADA","center");
-	h3.classList.add("tw_cent");
+	var h4 = createTopo(4,"white","SELECIONE O TIPO DA ENTRADA","center");
+	h4.classList.add("levenim");
 
-	addAnimation(h3,4,2,"ease");
+	addAnimation(h4,4,2,"ease");
 
 	r1.appendChild(colInfo);
-	colInfo.appendChild(h3);
+	colInfo.appendChild(h4);
 	main.appendChild(r1);
 	// colInfo.classList.add("center");
 
@@ -39,6 +39,7 @@ function choosePath(){
 
 	txt.title = "Arquivo";
 
+	file.setAttribute("onchange", "lerTxt(evt)");
 	file.style.display = 'none';
 	colTxt.appendChild(file);
 
@@ -59,7 +60,10 @@ function choosePath(){
 
 	txt.addEventListener("click", function(){
 
-		file.onchange = function(){	
+		file.onchange = function(evt){
+
+			lerTxt(evt);
+
 			setTimeout(function(){
 				main.parentNode.removeChild(main);
 			},1500);
