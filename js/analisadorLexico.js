@@ -51,7 +51,7 @@ var analisadorLexico = function() {
 
 		var classificacao;
 
-		for(var i = 0; i < lexemas.length; i++){
+		for(var i = 0, tam = lexemas.length; i < tam; i++){
 			if(isInteger(lexemas[i])){
 				classificacao = "INT";
 			}
@@ -79,8 +79,9 @@ var analisadorLexico = function() {
 			else{
 				classificacao = "ERRO";
 			}
+			else if(is)
 
-			addToken({simbolo:lexemas[i], tipo:classificacao});
+				addToken({simbolo:lexemas[i], tipo:classificacao});
 		}
 
 		console.log(tokens);
@@ -138,6 +139,60 @@ var analisadorLexico = function() {
 
 	function isFP(lexema){
 		rules = new RegExp(FP);
+
+		return rules.test(lexema);
+	}
+
+	function isProgram(lexema){
+		rules = new RegExp(PROGRAM);
+
+		return rules.test(lexema);
+	}
+
+	function isBegin(lexema){
+		rules = new RegExp(BEGIN);
+
+		return rules.test(lexema);
+	}
+
+	function isEnd(lexema){
+		rules = new RegExp(END);
+
+		return rules.test(lexema);
+	}
+
+	function isProcedure(lexema){
+		rules = new RegExp(PROCEDURE);
+
+		return rules.test(lexema);
+	}
+
+	function isIf(lexema){
+		rules = new RegExp(IF);
+
+		return rules.test(lexema);
+	}
+
+	function isThen(lexema){
+		rules = new RegExp(THEN);
+
+		return rules.test(lexema);
+	}
+
+	function isElse(lexema){
+		rules = new RegExp(ELSE);
+
+		return rules.test(lexema);
+	}
+
+	function isWhile(lexema){
+		rules = new RegExp(WHILE);
+
+		return rules.test(lexema);
+	}
+
+	function isDo(lexema){
+		rules = new RegExp(DO);
 
 		return rules.test(lexema);
 	}
