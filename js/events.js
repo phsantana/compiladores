@@ -90,7 +90,7 @@ document.querySelector("#lexico").onclick = function(){
 		setFont(button,2);
 		addAnimation(button,4,2,"ease");
 
-		//ANALISADOR
+		//ANALISADOR LÉXICO
 		button.addEventListener("click", function(){
 
 			if(document.querySelector(".result")){

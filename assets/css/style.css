@@ -6,13 +6,16 @@
 	border: 0;
 }
 
+:root{
+	--main-bg: white;
+}
 
 /*CORPO*/
 
 
 html,body{
 	height: 100%;
-	background-color: white;
+	background-color: var(--main-bg);
 }
 
 .full-screen{
@@ -349,7 +352,7 @@ div #soma .popupoff{
 
 .sidebar{
 	position: absolute;
-	background-color: white;
+	background-color: var(--main-bg);
 	height: 100%;
 	width: 100%;
 	left: 0;
@@ -389,7 +392,7 @@ div #soma .popupoff{
 .path{
 	width: 200px;
 	height: 200px;
-	background-color: white;
+	background-color: var(--main-bg);
 	position: relative;
 	border-radius: 100%;
 	/* border: 2px solid white; */
@@ -404,7 +407,7 @@ div #soma .popupoff{
 
 .path:hover{
 	cursor: pointer;
-	/* background-color: white; */
+	/* background-color: var(--main-bg); */
 	/* box-shadow: 15px 15px 15px black; */
 	-webkit-transition: all ease .5s;
 	-moz-transition: all ease .5s;
@@ -439,7 +442,7 @@ div #soma .popupoff{
 
 
 table{
-	background-color: white;
+	background-color: var(--main-bg);
 	animation: fadeInUp 1s ease;
 }
 
@@ -514,7 +517,7 @@ html::-webkit-scrollbar{
 }
 
 html::-webkit-scrollbar-thumb{
-	background-color: white;
+	background-color: var(--main-bg);
 }
 
 html::-webkit-scrollbar-track-piece{
@@ -528,7 +531,7 @@ html::-webkit-scrollbar-track-piece{
 }
 
 .content::-webkit-scrollbar-thumb{
-	background-color: white;
+	background-color: var(--main-bg);
 	border-radius: 100px;
 }
 
@@ -540,7 +543,7 @@ html::-webkit-scrollbar-track-piece{
 }
 
 .resultado-tabela::-webkit-scrollbar-thumb{
-	background-color: white;
+	background-color: var(--main-bg);
 	border-radius: 10px 10px 10px 10px;
 }
 
@@ -552,7 +555,7 @@ html::-webkit-scrollbar-track-piece{
 }
 
 .menu::-webkit-scrollbar-thumb{
-	background-color: white;
+	background-color: var(--main-bg);
 	border-radius: 10px 10px 10px 10px;
 }
 
@@ -739,7 +742,7 @@ input[type=file] + label:hover{
 		color: #555;
 		width: auto;
 		height: auto;
-		background-color: white;
+		background-color: var(--main-bg);
 		-webkit-transition: all .5s ease;
 		-moz-transition: all .5s ease;
 		-ms-transition: all .5s ease;
