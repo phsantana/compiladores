@@ -76,10 +76,12 @@ var analisadorLexico = function() {
 			else if(isFP(lexemas[i])){
 				classificacao = "FP";
 			}
+			else if(isProgram(lexemas[i])){
+				classificacao = "PROGRAM";
+			}
 			else{
 				classificacao = "ERRO";
 			}
-			else if(is)
 
 				addToken({simbolo:lexemas[i], tipo:classificacao});
 		}
@@ -88,7 +90,7 @@ var analisadorLexico = function() {
 	}
 
 	function addToken(token){
-		tokens.push(token); 
+		tokens.push(token);
 	}
 
 	function getTokens(){
