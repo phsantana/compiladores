@@ -8,15 +8,23 @@ var analisadorLexico = function() {
 
 	function preProcessadorEntrada(entrada){
 		var aux = entrada;
-		var lexemaAux
+		var lexemaAux;
 
+		//Utiliza símbolos auxiliares "#" para dividir a entrada
 		entrada = entrada.replace(/[0-9]+/g, "#");
 		entrada = entrada.replace(/[\.]/g, "#");
+
+		//Divide o array por tudo que não é número
 		var numeros = aux.split(/[^0-9\.]+/);
-		var operadores = entrada.split("#").filter(function(n){return n});
+		
+		var operadores = entrada.split("#").filter(function(n){
+			return n;
+		});
+
 		var lexemas = [];
 
 		for (var cont = 0; cont < operadores.length; cont++) {
+			//Tratando espaços vazios entre operadores
 			if(operadores[cont].length > 1){
 				lexemaAux = operadores[cont];
 				lexemaAux = lexemaAux.split("").reverse().join();

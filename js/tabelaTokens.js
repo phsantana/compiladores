@@ -35,28 +35,28 @@ const ID 		= /^((\_?)([a-z]+)(\d*))$/;
 //=========== PALAVRAS DO PROGRAMA ===========
 
 //Program
-const PROGRAM 	= /^([program])$/;
+const PROGRAM 	= /program/;
 
 //Begin
-const BEGIN 	= /^([begin])$/;
+const BEGIN 	= /begin/;
 
 //End
-const END 		= /^([end])$/;
+const END 		= /end/;
 
 //Procedure
-const PROCEDURE = /^([procedure])$/;
+const PROCEDURE = /procedure/;
 
 //If
-const IF 		= /^([if])$/;
+const IF 		= /if/;
 
 //Then
-const THEN 		= /^([then])$/;
+const THEN 		= /then/;
 
 //Else
-const ELSE 		= /^([else])$/;
+const ELSE 		= /else/;
 
 //While
-const WHILE 	= /^([while])$/;
+const WHILE 	= /while/;
 
 //Do
-const DO 		= /^([do])$/;
+const DO 		= /do/;
