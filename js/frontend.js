@@ -113,17 +113,20 @@ function startIcons(){
 	},1500);
 }
 
-function rollTitle(){
+function rollTitle(cont = 0){
 	var titulo	= document.querySelector("#titulo");
 	var pai 	= titulo.parentNode;
+	var titulos = ["COMPILADORES","ANALISADOR LÉXICO", "ANALISADOR SINTÁTICO"];
 
 	setTimeout(function(){
-		if(titulo.innerHTML == "COMPILADORES"){
-			titulo.innerHTML = "ANALISADOR LÉXICO";
+		if(cont < titulos.length){
+			titulo.innerHTML = titulos[cont];
+			++cont;
 		}
-		else{
-			titulo.innerHTML = "COMPILADORES";
-		}
+
+		if(cont == titulos.length)
+			cont = 0;
+
 		titulo.style.animation = "fadeInUp 2s ease";
 	},1000);
 
@@ -133,6 +136,6 @@ function rollTitle(){
 		titulo.style.animation = "fadeOutUp 1.1s ease";
 		pai.appendChild(titulo);
 
-		rollTitle();
+		rollTitle(cont);
 	},3000);
 }
