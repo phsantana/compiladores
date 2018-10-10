@@ -256,7 +256,7 @@ html,body{
 }
 
 .result{
-	height: 200px;
+	height: 180px;
 	width: 100%;
 	display: block;
 	position: absolute;
@@ -497,6 +497,11 @@ ul > li{
 	-ms-transition: all .3s ease;
 	-o-transition: all .3s ease;
 	transition: all .3s ease;
+	box-sizing: border-box;
+}
+
+ul > li:not(:first-child){
+	margin-top: 10px;
 }
 
 li:hover{

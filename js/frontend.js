@@ -1,4 +1,4 @@
-function choosePath(){
+function choosePath(flag){
 	var main 		 = createDIV(["cover"]);
 	main.style.backgroundColor = "rgba(0,0,0,.95)";
 	main.style.display = "block";
@@ -59,7 +59,6 @@ function choosePath(){
 	container.appendChild(row);
 
 	txt.addEventListener("click", function(){
-
 		file.onchange = function(evt){
 
 			lerTxt(evt);
@@ -72,8 +71,10 @@ function choosePath(){
 			addAnimation(txt,6,1.5,"ease");
 			addAnimation(terminal,7,1.5,"ease");
 
-			startIcons();
-			rollTitle();
+			if(flag){	
+				startIcons();
+				rollTitle();
+			}
 		}
 	});
 
@@ -85,8 +86,13 @@ function choosePath(){
 		addAnimation(this,7,1.5,"ease");
 		addAnimation(txt,6,1.5,"ease");
 
-		startIcons();
-		rollTitle();
+		content.conteudo = "";
+		content.flag = 0;
+
+		if(flag){
+			startIcons();
+			rollTitle();
+		}
 	});
 	
 	//startIcons();

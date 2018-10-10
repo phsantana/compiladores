@@ -8,5 +8,5 @@ BY: Phillipe Sant'Ana
 
 window.onload = function(){
 //Dá o ponta pé inicial chamando as funções mais importantes para iniciar a aplicação
-	choosePath();
+	choosePath(true);
 }

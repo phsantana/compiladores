@@ -1,3 +1,8 @@
+var content = {
+	conteudo: "",
+	flag: 0
+};
+
 /******************EVENTOS******************/
 
 document.querySelector("#menu").onclick = function(){
@@ -76,6 +81,85 @@ document.querySelector("#lexico").onclick = function(){
 		var txtArea = createTxtArea(15,40);
 		addAnimation(txtArea,1,2,"ease");
 
+		if(content.flag != 0)
+			txtArea.value = content.conteudo;
+
+		colText.appendChild(txtArea);
+		r2.appendChild(colText);
+		bg.appendChild(r2);
+
+		//---------------------------------
+
+		var r3 			= createRow();
+		var colButton 	= createCol(12);
+		colButton.classList.add("center");
+
+		var button 		= createButton("ANALISAR");
+		setFont(button,2);
+		addAnimation(button,4,2,"ease");
+
+		//ANALISADOR LÉXICO
+		button.addEventListener("click", function(){
+
+			if(document.querySelector(".result")){
+				document.querySelector(".result").parentNode.removeChild(document.querySelector(".result"));
+			}
+
+			var analisador 	= new analisadorLexico();
+
+			var result 		= createDIV(["result"]);
+			var tabela 		= createTable();
+			var tbody 		= tabela.lastChild;
+			tbody.classList.add("brandon_r");
+
+			analisador.analisarLexico(txtArea.value);
+
+			var tokens = analisador.getTokens();
+
+			for(var i in tokens)
+				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+
+			result.appendChild(tabela);
+			bg.appendChild(result);
+		});
+
+		colButton.appendChild(button);
+		r3.appendChild(colButton);
+		bg.appendChild(r3);
+	}
+	else{
+		while(bg.hasChildNodes())
+			bg.removeChild(bg.firstElementChild);
+
+		var r1 = createRow();
+
+		var colTitulo = createCol(12);
+		colTitulo.style.marginTop = "20px";
+		colTitulo.classList.add("center");
+
+		var h = createTopo(5,"#555","DIGITE O CÓDIGO");
+		setFont(h,2);
+
+		h.style.textAlign = "center";
+		addAnimation(h,4,1,"ease");
+
+		colTitulo.appendChild(h);
+		r1.appendChild(colTitulo);
+		bg.appendChild(r1);
+
+		//-------------------------------
+
+		var r2 		= createRow();
+
+		var colText = createCol(6,undefined,3);
+		colText.classList.add("center");
+
+		var txtArea = createTxtArea(15,40);
+		addAnimation(txtArea,1,2,"ease");
+
+		if(content.flag != 0)
+			txtArea.value = content.conteudo;
+
 		colText.appendChild(txtArea);
 		r2.appendChild(colText);
 		bg.appendChild(r2);
@@ -121,13 +205,173 @@ document.querySelector("#lexico").onclick = function(){
 	}
 }
 
-function lerTxt(evt){
+document.querySelector("#sintatico").onclick = function(){
+	if(!bg.hasChildNodes()){
 
-	var input = evt.target;
+		var r1 = createRow();
+
+		var colTitulo = createCol(12);
+		colTitulo.style.marginTop = "20px";
+		colTitulo.classList.add("center");
+
+		var h = createTopo(5,"#555","DIGITE O CÓDIGO");
+		setFont(h,2);
+
+		h.style.textAlign = "center";
+		addAnimation(h,4,1,"ease");
+
+		colTitulo.appendChild(h);
+		r1.appendChild(colTitulo);
+		bg.appendChild(r1);
+
+		//-------------------------------
+
+		var r2 		= createRow();
+
+		var colText = createCol(6,undefined,3);
+		colText.classList.add("center");
+
+		var txtArea = createTxtArea(15,40);
+		addAnimation(txtArea,1,2,"ease");
+
+		if(content.flag != 0)
+			txtArea.value = content.conteudo;
+
+		colText.appendChild(txtArea);
+		r2.appendChild(colText);
+		bg.appendChild(r2);
+
+		//---------------------------------
+
+		var r3 			= createRow();
+		var colButton 	= createCol(12);
+		colButton.classList.add("center");
+
+		var button 		= createButton("ANALISAR");
+		setFont(button,2);
+		addAnimation(button,4,2,"ease");
+
+		//ANALISADOR LÉXICO
+		button.addEventListener("click", function(){
+
+			if(document.querySelector(".result")){
+				document.querySelector(".result").parentNode.removeChild(document.querySelector(".result"));
+			}
+
+			var analisador 	= new analisadorLexico();
+
+			var result 		= createDIV(["result"]);
+			var tabela 		= createTable();
+			var tbody 		= tabela.lastChild;
+			tbody.classList.add("brandon_r");
+
+			analisador.analisarLexico(txtArea.value);
+
+			var tokens = analisador.getTokens();
+
+			for(var i in tokens)
+				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+
+			result.appendChild(tabela);
+			bg.appendChild(result);
+		});
+
+		colButton.appendChild(button);
+		r3.appendChild(colButton);
+		bg.appendChild(r3);
+	}
+	else{
+		while(bg.hasChildNodes())
+			bg.removeChild(bg.firstElementChild);
+
+		var r1 = createRow();
+
+		var colTitulo = createCol(12);
+		colTitulo.style.marginTop = "20px";
+		colTitulo.classList.add("center");
+
+		var h = createTopo(5,"#555","DIGITE O CÓDIGO");
+		setFont(h,2);
+
+		h.style.textAlign = "center";
+		addAnimation(h,4,1,"ease");
+
+		colTitulo.appendChild(h);
+		r1.appendChild(colTitulo);
+		bg.appendChild(r1);
+
+		//-------------------------------
+
+		var r2 		= createRow();
+
+		var colText = createCol(6,undefined,3);
+		colText.classList.add("center");
+
+		var txtArea = createTxtArea(15,40);
+		addAnimation(txtArea,1,2,"ease");
+
+		if(content.flag != 0)
+			txtArea.value = content.conteudo;
+
+		colText.appendChild(txtArea);
+		r2.appendChild(colText);
+		bg.appendChild(r2);
+
+		//---------------------------------
+
+		var r3 			= createRow();
+		var colButton 	= createCol(12);
+		colButton.classList.add("center");
+
+		var button 		= createButton("ANALISAR");
+		setFont(button,2);
+		addAnimation(button,4,2,"ease");
+
+		//ANALISADOR LÉXICO
+		button.addEventListener("click", function(){
+
+			if(document.querySelector(".result")){
+				document.querySelector(".result").parentNode.removeChild(document.querySelector(".result"));
+			}
+
+			var analisador 	= new analisadorLexico();
+
+			var result 		= createDIV(["result"]);
+			var tabela 		= createTable();
+			var tbody 		= tabela.lastChild;
+			tbody.classList.add("brandon_r");
+
+			analisador.analisarLexico(txtArea.value);
+
+			var tokens = analisador.getTokens();
+
+			for(var i in tokens)
+				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+
+			result.appendChild(tabela);
+			bg.appendChild(result);
+		});
+
+		colButton.appendChild(button);
+		r3.appendChild(colButton);
+		bg.appendChild(r3);
+	}
+}
+
+document.querySelector("#entrada").onclick = function(){
+	choosePath(false);
+}
+
+function lerTxt(evt){
+	
+	var file = evt.target.files[0];
 
 	var reader = new FileReader();
 	
-	reader.onload = function(){
-		console.log(reader.result);
+	reader.onload = function(fileName){
+		content.conteudo = fileName.currentTarget.result;
+		content.flag = 1;
 	}
+
+	reader.readAsText(file);
 }
