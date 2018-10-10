@@ -1,0 +1,12 @@
+program
+  begin
+    variavel
+  if(candidato)then
+    begin
+	while(condicao)do
+	  begin
+	     comando
+	  end
+    end
+end
+
