@@ -27,6 +27,8 @@ const FP 		= /^([)])$/;
 // Espaço em branco
 const ESP 		= /^([\n])$/;
 
+const EL 		= /^;$/
+
 
 
 
@@ -61,3 +63,15 @@ const DO 		= /^do$/;
 
 // Identificador (variável)
 const ID 		= /^((\_?)([a-z]+)([A-Z]*)(([a-z]*)||(\d*))*)$/;
+
+//Tipo inteiro
+const TIPOINT 	= /^int$/;
+
+//Tipo real
+const TIPOREAL	= /^real$/;
+
+//Tipo char
+const TIPOCHAR 	= /^char$/;
+
+//Tipo boolean
+const TIPOBOOL 	= /^boolean$/;

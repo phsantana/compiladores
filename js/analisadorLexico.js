@@ -61,6 +61,14 @@ var analisadorLexico = function() {
 			while(noSpace[i] == "")
 				noSpace.splice(i,1);
 
+			if(noSpace[i] != undefined && noSpace[i].match(/;/)){
+				var pieceSC = noSpace[i].split(/;/);
+				noSpace.splice(i,1);
+				noSpace.splice(i,0,pieceSC[0],";");
+				i += 1;
+			}
+
+
 			if(noSpace[i] != undefined && noSpace[i].match(/[(]/)){
 				var piecesAp = noSpace[i].split(/[(]/);
 				var cont = 0;
@@ -169,6 +177,18 @@ var analisadorLexico = function() {
 			else if(isEnd(lexemas[i])){
 				classificacao = "END";
 			}
+			else if(isTipoInt(lexemas[i])){
+				classificacao = "TIPOINT";
+			}
+			else if(isTipoReal(lexemas[i])){
+				classificacao = "TIPOREAL";
+			}
+			else if(isTipoChar(lexemas[i])){
+				classificacao = "TIPOCHAR";
+			}
+			else if(isTipoBoolean(lexemas[i])){
+				classificacao = "TIPOBOOL";
+			}
 			else if(isIf(lexemas[i])){
 				classificacao = "IF";
 			}
@@ -184,6 +204,12 @@ var analisadorLexico = function() {
 			else if(isDo(lexemas[i])){
 				classificacao = "DO";
 			}
+			else if(isEl(lexemas[i])){
+				classificacao = "END LINE";
+			}
+			else if(isProcedure(lexemas[i])){
+				classificacao = "PROCEDURE";
+			}
 			else if(isId(lexemas[i])){
 				classificacao = "ID";
 			}
@@ -192,8 +218,7 @@ var analisadorLexico = function() {
 			}
 			addToken({simbolo:lexemas[i], tipo:classificacao});
 		}
-
-		console.log(tokens);
+		// console.log(tokens);
 	}
 
 	function addToken(token){
@@ -312,4 +337,33 @@ var analisadorLexico = function() {
 		return rules.test(lexema);
 	}
 
+	function isEl(lexema){
+		rules = new RegExp(EL);
+
+		return rules.test(lexema);
+	}
+
+	function isTipoInt(lexema){
+		rules = new RegExp(TIPOINT);
+
+		return rules.test(lexema);
+	}
+
+	function isTipoReal(lexema){
+		rules = new RegExp(TIPOREAL);
+
+		return rules.test(lexema);
+	}
+
+	function isTipoChar(lexema){
+		rules = new RegExp(TIPOCHAR);
+
+		return rules.test(lexema);
+	}
+
+	function isTipoBoolean(lexema){
+		rules = new RegExp(TIPOBOOL);
+
+		return rules.test(lexema);
+	}
 }

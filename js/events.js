@@ -108,7 +108,7 @@ document.querySelector("#lexico").onclick = function(){
 			var analisador 	= new analisadorLexico();
 
 			var result 		= createDIV(["result"]);
-			var tabela 		= createTable();
+			var tabela 		= createTable(["SÍMBOLO","TIPO"]);
 			var tbody 		= tabela.lastChild;
 			tbody.classList.add("brandon_r");
 
@@ -184,7 +184,7 @@ document.querySelector("#lexico").onclick = function(){
 			var analisador 	= new analisadorLexico();
 
 			var result 		= createDIV(["result"]);
-			var tabela 		= createTable();
+			var tabela 		= createTable(["SÍMBOLO","TIPO"]);
 			var tbody 		= tabela.lastChild;
 			tbody.classList.add("brandon_r");
 
@@ -261,7 +261,7 @@ document.querySelector("#sintatico").onclick = function(){
 			var analisador 	= new analisadorLexico();
 
 			var result 		= createDIV(["result"]);
-			var tabela 		= createTable();
+			var tabela 		= createTable(["TIPO","MENSAGEM"]);
 			var tbody 		= tabela.lastChild;
 			tbody.classList.add("brandon_r");
 
@@ -269,8 +269,12 @@ document.querySelector("#sintatico").onclick = function(){
 
 			var tokens = analisador.getTokens();
 
-			for(var i in tokens)
-				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+			var analiSintax = new analisadorSintatico(tokens);
+
+			var report = analiSintax.analisarSintaxe;
+
+			for(var i in report)
+				addContentInARow(tbody,report[i].tipo,report[i].msg);
 
 			result.appendChild(tabela);
 			bg.appendChild(result);
@@ -337,7 +341,7 @@ document.querySelector("#sintatico").onclick = function(){
 			var analisador 	= new analisadorLexico();
 
 			var result 		= createDIV(["result"]);
-			var tabela 		= createTable();
+			var tabela 		= createTable(["TIPO","MENSAGEM"]);
 			var tbody 		= tabela.lastChild;
 			tbody.classList.add("brandon_r");
 
@@ -345,8 +349,11 @@ document.querySelector("#sintatico").onclick = function(){
 
 			var tokens = analisador.getTokens();
 
-			for(var i in tokens)
-				addContentInARow(tbody,tokens[i].simbolo,tokens[i].tipo);
+			var analiSintax = new analisadorSintatico(tokens);
+
+			var report = analiSintax.analisarSintaxe
+			for(var i in report)
+				addContentInARow(tbody,report[i].tipo,report[i].msg);
 
 			result.appendChild(tabela);
 			bg.appendChild(result);

@@ -88,7 +88,7 @@ button.classList.add("btn");
 return button;
 }
 
-function createTable(){
+function createTable(content){
 	var table 	= document.createElement("table");
 	var tr 		= document.createElement("tr");
 	var thead 	= document.createElement("thead");
@@ -96,14 +96,14 @@ function createTable(){
 
 	var th 		= new Array();
 	var tbody 	= document.createElement("tbody");
-	var content = ["SÍMBOLO", "TIPO"];
+	// var content = ["SÍMBOLO", "TIPO"];
 
-	for(let i = 0; i < 2; i++){
+	for(let i = 0; i < content.length; i++){
 		th.push(document.createElement("th"));
 		th[i].innerHTML = content[i];
 	}
 
-	for(let i = 0; i < 2; i++)
+	for(let i = 0; i < content.length; i++)
 		tr.appendChild(th[i]);
 
 	thead.appendChild(tr);
