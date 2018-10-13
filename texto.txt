@@ -1,6 +1,8 @@
 program teste;
+  int a1,b2;
   begin
-    variavel
+    a1:=1;
+    b2:=2;
   if(candidato)then
     begin
 	while(condicao)do

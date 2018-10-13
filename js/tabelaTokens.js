@@ -27,9 +27,14 @@ const FP 		= /^([)])$/;
 // Espaço em branco
 const ESP 		= /^([\n])$/;
 
-const EL 		= /^;$/
+//Fim de linha (ponto e vírgula)
+const EL 		= /^;$/;
 
+//Vírgula
+const COMMA 	= /^,$/;
 
+//Atribuição
+const ATR 		= /^[:=]$/;
 
 
 //=========== PALAVRAS DO PROGRAMA ===========

@@ -61,13 +61,45 @@ var analisadorLexico = function() {
 			while(noSpace[i] == "")
 				noSpace.splice(i,1);
 
-			if(noSpace[i] != undefined && noSpace[i].match(/;/)){
-				var pieceSC = noSpace[i].split(/;/);
-				noSpace.splice(i,1);
-				noSpace.splice(i,0,pieceSC[0],";");
-				i += 1;
+			if(noSpace[i] != undefined && noSpace[i].match(/,/)){
+				var pieceComma = noSpace[i].split(/,/);
+
+				if(pieceComma[pieceComma.length-1] != ""){
+					noSpace.splice(i,1);
+					noSpace.splice(i,0,pieceComma[0],",",pieceComma[pieceComma.length-1]);
+					i += 2;
+				}
+				else{	
+					noSpace.splice(i,1);
+					noSpace.splice(i,0,pieceComma[0],",");
+					i += 1;
+				}
 			}
 
+			if(noSpace[i] != undefined && noSpace[i].match(/:=/)){
+				var pieceAtr = noSpace[i].split(":=");
+
+				if(pieceAtr[pieceAtr.length-1] != ""){
+					noSpace.splice(i,1);
+					noSpace.splice(i,0,pieceAtr[0],":=",pieceAtr[pieceAtr.length-1]);
+					i += 2;
+				}
+			}
+
+			if(noSpace[i] != undefined && noSpace[i].match(/;/)){
+				var pieceSC = noSpace[i].split(/;/);
+
+				if(pieceSC[pieceSC.length-1] != ""){
+					noSpace.splice(i,1);
+					noSpace.splice(i,0,pieceSC[0],";",pieceSC[pieceSC.length-1]);
+					i += 2;
+				}
+				else{	
+					noSpace.splice(i,1);
+					noSpace.splice(i,0,pieceSC[0],";");
+					i += 1;
+				}
+			}
 
 			if(noSpace[i] != undefined && noSpace[i].match(/[(]/)){
 				var piecesAp = noSpace[i].split(/[(]/);
@@ -203,6 +235,12 @@ var analisadorLexico = function() {
 			}
 			else if(isDo(lexemas[i])){
 				classificacao = "DO";
+			}
+			else if(isComma(lexemas[i])){
+				classificacao = "COMMA";
+			}
+			else if(isAtr(lexemas[i])){
+				classificacao = "ATR";
 			}
 			else if(isEl(lexemas[i])){
 				classificacao = "END LINE";
@@ -365,5 +403,17 @@ var analisadorLexico = function() {
 		rules = new RegExp(TIPOBOOL);
 
 		return rules.test(lexema);
+	}
+
+	function isComma(lexema){
+		rules = new RegExp(COMMA);
+
+		return rules.test(lexema);
+	}
+
+	function isAtr(lexema){
+		rules = new RegExp(ATR);
+
+		return rules.test(rules);
 	}
 }

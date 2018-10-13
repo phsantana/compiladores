@@ -50,7 +50,7 @@ var Gramatica = function(tokens){
 					if(vT.length){
 						if(vT[0].tipo == "END LINE"){
 							vT.splice(0,1);
-							bloco(vT,report);
+							bloco(vT);
 						}
 						else{
 							console.log("EndLine não definido!");
@@ -83,59 +83,75 @@ var Gramatica = function(tokens){
 		return report;
 	}
 
-	function bloco(vT,report){
+	function bloco(vT){
 		if(vT.length){
 			if(vT[0].tipo == "TIPOINT" || vT[0].tipo == "TIPOBOOL" || vT[0].tipo == "TIPOREAL" || vT[0].tipo == "TIPOCHAR"){
 				vT.splice(0,1);
 				vT = declaracaoVar(vT,variaveis);
+				bloco(vT);
 			}
 		}
 
 		if(vT.length){
 			if(vT[0].tipo == "PROCEDURE"){
+				vt.splice(0,1);
 				vT = declaracaoProcedure(vT,procedures);
+				bloco(vT);
 			}
 		}
 
+		if(vT.length){
 			if(vT[0].tipo == "BEGIN"){
-				vT.splice(0,1);
-				++contBeginEnd;
-				vT = comandos(vT,contBeginEnd);
-				if(vT[0].tipo == "END"){
-					--contBeginEnd;
-					vT.splice(0,1);
-				}
-				else{
-					setReport("ENDERROR",ENDERROR);
-				}
-			}
-			else{
-				vT.splice(0,1);
-				setReport("BEGINERROR",BEGINERROR);
+				vT = comandoComposto(vT);
+				bloco(vT);
 			}
 		}
 	}
 
 	function declaracaoVar(vT, variaveis){
 
-			do{
-				(vT[0].tipo == "ID"){
+		var endLine = 0;
+
+		do{
+			if(vT[0].tipo == "COMMA")
 				vT.splice(0,1);
+
+			if(vT[0].tipo == "ID"){
 				variaveis.push(vT[0]);
+				vT.splice(0,1);
+
 				if(vT[0].tipo == "END LINE"){
-					
+					endLine = 1;
+					vT.splice(0,1);
+					break;
 				}
-			}while(vT[0].tipo == "COMMA")
-		}
+			}
+		}while(vT[0].tipo == "COMMA");
+
+		if(!endLine)
+			setReport("ELERROR",ELERROR);
+
 		return vT;
 	}
+
 	function declaracaoProcedure(vT, procedures){
 		console.log("Declaração Procedures");
 		return vT;
 	}
-	function comandos(vT, contador){
-		console.log("Comandos");
+
+	function comandoComposto(vT){
+		if(vT.length){
+			if(vT[0].tipo == "BEGIN"){
+				++contBeginEnd;
+				vT.splice(0,1);
+			}
+		}
+
+		if(vT.length){
+			if(vT[0].tipo == "ID" && vT[1].tipo == "ATR"){
+				console.log("Atribuição");
+			}
+		}
 		return vT;
 	}
-
 }
