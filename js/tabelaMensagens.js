@@ -10,4 +10,4 @@ const ELERROR 	= "EndLine não definido!";
 
 const BEGINERROR= "Begin não definido!";
 
-const ENDERROR 	= "End não definido!";
+const ENDERROR 	= "Begin aberto sem End!";

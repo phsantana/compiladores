@@ -85,18 +85,29 @@ var Gramatica = function(tokens){
 
 	function bloco(vT,report){
 		if(vT.length){
-			if(vT[0].tipo == "TIPOINT" || vT[0].tipo == "TIPOBOOL" || vT[0].tipo == "TIPOREAL" || vT[0].tipo == "TIPOCHAR")
-				vT = declaracaoVar(vT,variaveis);
-
-			if(vT[0].tipo == "PROCEDURE"){
+			if(vT[0].tipo == "TIPOINT" || vT[0].tipo == "TIPOBOOL" || vT[0].tipo == "TIPOREAL" || vT[0].tipo == "TIPOCHAR"){
 				vT.splice(0,1);
-				vT = declaracaoProcedure(vT);
+				vT = declaracaoVar(vT,variaveis);
 			}
+		}
+
+		if(vT.length){
+			if(vT[0].tipo == "PROCEDURE"){
+				vT = declaracaoProcedure(vT,procedures);
+			}
+		}
 
 			if(vT[0].tipo == "BEGIN"){
 				vT.splice(0,1);
 				++contBeginEnd;
 				vT = comandos(vT,contBeginEnd);
+				if(vT[0].tipo == "END"){
+					--contBeginEnd;
+					vT.splice(0,1);
+				}
+				else{
+					setReport("ENDERROR",ENDERROR);
+				}
 			}
 			else{
 				vT.splice(0,1);
@@ -106,7 +117,16 @@ var Gramatica = function(tokens){
 	}
 
 	function declaracaoVar(vT, variaveis){
-		console.log("Declaração Var");
+
+			do{
+				(vT[0].tipo == "ID"){
+				vT.splice(0,1);
+				variaveis.push(vT[0]);
+				if(vT[0].tipo == "END LINE"){
+					
+				}
+			}while(vT[0].tipo == "COMMA")
+		}
 		return vT;
 	}
 	function declaracaoProcedure(vT, procedures){
