@@ -34,7 +34,7 @@ const EL 		= /^;$/;
 const COMMA 	= /^,$/;
 
 //Atribuição
-const ATR 		= /^[:=]$/;
+const ATR 		= /^:=$/;
 
 
 //=========== PALAVRAS DO PROGRAMA ===========
@@ -66,7 +66,7 @@ const WHILE 	= /^while$/;
 //Do
 const DO 		= /^do$/;
 
-// Identificador (variável)
+// Identificador
 const ID 		= /^((\_?)([a-z]+)([A-Z]*)(([a-z]*)||(\d*))*)$/;
 
 //Tipo inteiro
@@ -80,3 +80,44 @@ const TIPOCHAR 	= /^char$/;
 
 //Tipo boolean
 const TIPOBOOL 	= /^boolean$/;
+
+//=========== EXPRESSÕES ===========
+
+//Igual
+const IGUAL			= /^[=]$/;
+
+//Diferente
+const DIF			= /^[<>]$/;
+
+//Menor
+const MENOR			= /^[<]$/;
+
+//Maior
+const MAIOR			= /^[>]$/;
+
+//Menor Igual
+const MENORIGUAL	= /^[<=]$/;
+
+//Maior Igual
+const MAIORIGUAL	= /^[>=]$/;
+
+//Negação
+const NOT 			= /^not$/;
+
+//Ou
+const OR 			= /^or$/;
+
+//E
+const AND 			= /^and$/;
+
+//Verdadeiro
+const TRUE 			= /^true$/;
+
+//Falso
+const FALSE 		= /^false$/;
+
+//Div
+const DIV 			= /^div$/;
+
+//Var
+const VAR 			= /^var$/;

@@ -2,7 +2,7 @@ var Gramatica = function(tokens){
 	var vN = "";
 	var vT = tokens;
 	var report = [];
-	var variaveis = [];
+	var variaveis = new Array();
 	var procedures = [];
 	var contBeginEnd = 0;
 	var contParenteses = 0;
@@ -87,7 +87,7 @@ var Gramatica = function(tokens){
 		if(vT.length){
 			if(vT[0].tipo == "TIPOINT" || vT[0].tipo == "TIPOBOOL" || vT[0].tipo == "TIPOREAL" || vT[0].tipo == "TIPOCHAR"){
 				vT.splice(0,1);
-				vT = declaracaoVar(vT,variaveis);
+				vT = declaracaoVar(vT);
 				bloco(vT);
 			}
 		}
@@ -95,7 +95,7 @@ var Gramatica = function(tokens){
 		if(vT.length){
 			if(vT[0].tipo == "PROCEDURE"){
 				vt.splice(0,1);
-				vT = declaracaoProcedure(vT,procedures);
+				vT = declaracaoProcedure(vT);
 				bloco(vT);
 			}
 		}
@@ -108,8 +108,7 @@ var Gramatica = function(tokens){
 		}
 	}
 
-	function declaracaoVar(vT, variaveis){
-
+	function declaracaoVar(vT){
 		var endLine = 0;
 
 		do{
@@ -117,7 +116,7 @@ var Gramatica = function(tokens){
 				vT.splice(0,1);
 
 			if(vT[0].tipo == "ID"){
-				variaveis.push(vT[0]);
+				variaveis.push(vT[0].simbolo);
 				vT.splice(0,1);
 
 				if(vT[0].tipo == "END LINE"){
@@ -134,24 +133,183 @@ var Gramatica = function(tokens){
 		return vT;
 	}
 
-	function declaracaoProcedure(vT, procedures){
-		console.log("Declaração Procedures");
+	function declaracaoProcedure(vT){
+		var endLine = 0;
+		var auxVar = [];
+		var auxPro;
+
+		if(vT.length){
+			if(vT[0].tipo == "ID"){
+				auxPro = vT[0].simbolo;
+				vT[0].splice(0,1)
+			}
+			else
+				setReport("IDERROR",IDERROR);
+		}
+
+		if(vT.length){
+			if(vT[0].tipo == "AP"){
+				vT[0].splice(0,1);
+				++contParenteses;
+
+				while(vT[0].tipo != "FP"){
+					if(vT.length){
+						if((vT[0].tipo == "ID") || (vT[0].tipo == "VAR")){
+							if(vT[0].tipo == "VAR")
+								vT[0].splice(0,1);
+
+							if(vT[0].tipo == "ID"){
+								auxVar.push(vT[0].simbolo);
+								vT[0].splice(0,1);
+							}
+							else
+								setReport("IDERROR",IDERROR);
+
+							if(vT[0].tipo == "END LINE")
+								vT[0].splice(0,1);
+							else
+								setReport("ELERROR",ELERROR);
+
+						}
+					}
+				}
+
+				if(vT[0].tipo == "FP"){
+					vT.splice(0,1);
+					--contParenteses;
+				}
+				else
+					setReport("FPERROR",FPERROR);
+			}
+			else
+				setReport("APERROR",APERROR);
+		}
+
+		((vT[0].tipo == "END LINE") ? vT.splice(0,1) : setReport("ELERROR",ELERROR));
+
+		if(contParenteses)
+			setReport("PARERROR",PARERROR);
+
+		procedures.push({nome: auxPro, tipo: auxVar});
+
 		return vT;
 	}
 
 	function comandoComposto(vT){
+		//Verifica se começou o comandoComposto
 		if(vT.length){
 			if(vT[0].tipo == "BEGIN"){
 				++contBeginEnd;
 				vT.splice(0,1);
+				vT = comandoComposto(vT);
 			}
 		}
 
+		//Atribuição
 		if(vT.length){
 			if(vT[0].tipo == "ID" && vT[1].tipo == "ATR"){
-				console.log("Atribuição");
+				if(vT[2].tipo == "ID" || vT[2].tipo == "OPSOMA" || vT[2].tipo == "OPSUB" || vT[2].tipo == "INT" || vT[2].tipo == "REAL" || vT[2].tipo == "AP" ||  vT[2].tipo == "NOT"){
+					vT = expressao(vT);
+
+					if(vT[0].tipo == "END LINE")
+						vT.splice(0,1);
+					else
+						setReport("ELERROR",ELERROR);
+
+					vT = comandoComposto(vT);
+				}
+				else{
+					setReport("EXPERROR",EXPERROR);
+				}
+				vT = comandoComposto(vT);
 			}
 		}
+
+		//Chamada a Procedimento
+		if(vT.length){
+			if(vT[0].tipo == "ID" && vT[1].tipo == "AP"){
+				++contParenteses;
+				var flag = 0;
+				for(let i in procedures){
+					if(procedures[i].nome == vT[0].simbolo){
+						flag = 1;
+						break;
+					}
+				}
+				
+				if(flag)
+					vT.splice(0,2);
+				else{
+					setReport("NOEXST",vT[0].simbolo + NOEXST);
+					vT.splice(0,2);
+				}
+
+				vT = expressao(vT);
+
+				if(vT[0].tipo == "FP"){
+					vT.splice(0,1);
+					--contParenteses;
+				}
+
+				if(contParenteses)
+					setReport("FPERROR",FPERROR);
+			}
+		}
+
+		//If
+		if(vT.length){
+			if(vT[0].tipo == "IF"){
+				vT.splice(0,1);
+				if(vT[0].tipo == "AP"){
+					
+				}
+			}
+		}
+
+		//End
+		if(vT.length){
+			if(vT[0].tipo == "END"){
+				vT.splice(0,1);
+				--contBeginEnd;
+				comandoComposto(vT);
+			}
+		}
+
+		//Verifica se todos os begins fecharam
+		if(contBeginEnd != 0)
+			setReport("ENDERROR",ENDERROR);
+
 		return vT;
 	}
+
+	function expressao(vT){
+		if(vT[0].tipo == "ID"){	
+			if(variaveis.includes(vT[0].simbolo))
+				vT.splice(0,2);
+			else
+				setReport("NOEXST",vT[0]+NOEXST);
+		}
+
+		if(vT[0].tipo == "ID"){
+			if(variaveis.includes(vT[0].simbolo)){
+				vT.splice(0,1);
+				vT = expressao(vT);
+			}
+			else
+				setReport("NOEXST",vT[0]+NOEXST);
+		}
+		else{
+			if(vT[0].tipo != "END LINE"){
+				if(vT[0].tipo == "OPSOMA" || vT[0].tipo == "OPSUB" || vT[0].tipo == "INT" || vT[0].tipo == "REAL" || vT[0].tipo == "AP" ||  vT[0].tipo == "NOT"){
+					vT.splice(0,1);
+					vT = expressao(vT);
+				}
+				else
+					setReport("EXPERROR",EXPERROR);
+			}
+		}
+
+		return vT;
+	}
+
 }

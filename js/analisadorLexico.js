@@ -248,6 +248,45 @@ var analisadorLexico = function() {
 			else if(isProcedure(lexemas[i])){
 				classificacao = "PROCEDURE";
 			}
+			else if(isIgual(lexemas[i])){
+				classificacao = "IGUAL";
+			}
+			else if(isDif(lexemas[i])){
+				classificacao = "DIF";
+			}
+			else if(isMenor(lexemas[i])){
+				classificacao = "MENOR";
+			}
+			else if(isMaior(lexemas[i])){
+				classificacao = "MAIOR";
+			}
+			else if(isMenorIgual(lexemas[i])){
+				classificacao = "MENORIGUAL";
+			}
+			else if(isMaiorIgual(lexemas[i])){
+				classificacao = "MAIORIGUAL";
+			}
+			else if(isNot(lexemas[i])){
+				classificacao = "NOT";
+			}
+			else if(isOr(lexemas[i])){
+				classificacao = "OR";
+			}
+			else if(isAnd(lexemas[i])){
+				classificacao = "AND";
+			}
+			else if(isTrue(lexemas[i])){
+				classificacao = "TRUE";
+			}
+			else if(isFalse(lexemas[i])){
+				classificacao = "FALSE";
+			}
+			else if(isDiv(lexemas[i])){
+				classificacao = "DIV";
+			}
+			else if(isVar(lexemas[i])){
+				classificacao = "VAR";
+			}
 			else if(isId(lexemas[i])){
 				classificacao = "ID";
 			}
@@ -269,151 +308,197 @@ var analisadorLexico = function() {
 
 	function isInteger(lexema) {
 		rules = new RegExp(INT);
-
 		return rules.test(lexema);
 	}
 
 	function isFloat(lexema){
 		rules = new RegExp(REAL);
-
 		return rules.test(lexema);
 	}
 
 	function isSoma(lexema){
 		rules = new RegExp(OPSOMA);
-
 		return rules.test(lexema);
 	}
 
 	function isSub(lexema){
 		rules = new RegExp(OPSUB);
-
 		return rules.test(lexema);
 	}
 
 	function isMult(lexema){
 		rules = new RegExp(OPMUL);
-
 		return rules.test(lexema);
 	}
 
 	function isDiv(lexema){
 		rules = new RegExp(OPDIV);
-
 		return rules.test(lexema);
 	}
 
 	function isAP(lexema){
 		rules = new RegExp(AP);
-
 		return rules.test(lexema);
 	}
 
 	function isFP(lexema){
 		rules = new RegExp(FP);
-
 		return rules.test(lexema);
 	}
 
 	function isProgram(lexema){
 		rules = new RegExp(PROGRAM);
-
 		return rules.test(lexema);
 	}
 
 	function isBegin(lexema){
 		rules = new RegExp(BEGIN);
-
 		return rules.test(lexema);
 	}
 
 	function isEnd(lexema){
 		rules = new RegExp(END);
-
 		return rules.test(lexema);
 	}
 
 	function isProcedure(lexema){
 		rules = new RegExp(PROCEDURE);
-
 		return rules.test(lexema);
 	}
 
 	function isIf(lexema){
 		rules = new RegExp(IF);
-
 		return rules.test(lexema);
 	}
 
 	function isThen(lexema){
 		rules = new RegExp(THEN);
-
 		return rules.test(lexema);
 	}
 
 	function isElse(lexema){
 		rules = new RegExp(ELSE);
-
 		return rules.test(lexema);
 	}
 
 	function isWhile(lexema){
 		rules = new RegExp(WHILE);
-
 		return rules.test(lexema);
 	}
 
 	function isDo(lexema){
 		rules = new RegExp(DO);
-
 		return rules.test(lexema);
 	}
 
 	function isId(lexema){
 		rules = new RegExp(ID);
-
 		return rules.test(lexema);
 	}
 
 	function isEl(lexema){
 		rules = new RegExp(EL);
-
 		return rules.test(lexema);
 	}
 
 	function isTipoInt(lexema){
 		rules = new RegExp(TIPOINT);
-
 		return rules.test(lexema);
 	}
 
 	function isTipoReal(lexema){
 		rules = new RegExp(TIPOREAL);
-
 		return rules.test(lexema);
 	}
 
 	function isTipoChar(lexema){
 		rules = new RegExp(TIPOCHAR);
-
 		return rules.test(lexema);
 	}
 
 	function isTipoBoolean(lexema){
 		rules = new RegExp(TIPOBOOL);
-
 		return rules.test(lexema);
 	}
 
 	function isComma(lexema){
 		rules = new RegExp(COMMA);
-
 		return rules.test(lexema);
 	}
 
 	function isAtr(lexema){
 		rules = new RegExp(ATR);
 
-		return rules.test(rules);
+		return rules.test(lexema);
 	}
+
+	function isIgual(lexema){
+		rules = new RegExp(IGUAL);
+		return rules.test(lexema);
+	}
+
+	function isDif(lexema){
+		rules = new RegExp(DIF);
+		return rules.test(lexema);
+	}
+
+	function isMenor(lexema){
+		rules = new RegExp(MENOR);
+		return rules.test(lexema);
+	}
+
+	function isMaior(lexema){
+		rules = new RegExp(MAIOR);
+		return rules.test(lexema);
+	}
+
+	function isMenorIgual(lexema){
+		rules = new RegExp(MENORIGUAL);
+		return rules.test(lexema);
+	}
+
+	function isMaiorIgual(lexema){
+		rules = new RegExp(MAIORIGUAL);
+		return rules.test(lexema);
+	}
+
+	function isNot(lexema){
+		rules = new RegExp(NOT);
+		return rules.test(lexema);
+	}
+
+	function isOr(lexema){
+		rules = new RegExp(OR);
+		return rules.test(lexema);	
+	}
+
+	function isAnd(lexema){
+		rules = new RegExp(AND);
+		return rules.test(lexema);
+	}
+
+	function isTrue(lexema){
+		rules = new RegExp(TRUE);
+		return rules.test(lexema);
+	}
+
+	function isFalse(lexema){
+		rules = new RegExp(FALSE);
+		return rules.test(lexema);
+	}
+
+	function isDiv(lexema){
+		rules = new RegExp(DIV);
+		return rules.test(lexema);
+	}
+
+	function isMaiorIgual(lexema){
+		rules = new RegExp(MAIORIGUAL);
+		return rules.test(lexema);
+	}
+
+	function isVar(lexema){
+		rules = new RegExp(VAR);
+		return rules.test(lexema);
+	}	
 }
