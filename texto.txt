@@ -3,7 +3,7 @@ program teste;
   begin
     a1:=1;
     b2:=2;
-  if(candidato)then
+  if(a1 < b2)then
     begin
 	while(condicao)do
 	  begin

@@ -84,22 +84,22 @@ const TIPOBOOL 	= /^boolean$/;
 //=========== EXPRESSÕES ===========
 
 //Igual
-const IGUAL			= /^[=]$/;
+const IGUAL			= /^(=)$/;
 
 //Diferente
-const DIF			= /^[<>]$/;
+const DIF			= /^(<>)$/;
 
 //Menor
-const MENOR			= /^[<]$/;
+const MENOR			= /^(<)$/;
 
 //Maior
-const MAIOR			= /^[>]$/;
+const MAIOR			= /^(>)$/;
 
 //Menor Igual
-const MENORIGUAL	= /^[<=]$/;
+const MENORIGUAL	= /^(<=)$/;
 
 //Maior Igual
-const MAIORIGUAL	= /^[>=]$/;
+const MAIORIGUAL	= /^(>=)$/;
 
 //Negação
 const NOT 			= /^not$/;

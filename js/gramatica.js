@@ -4,8 +4,7 @@ var Gramatica = function(tokens){
 	var report = [];
 	var variaveis = new Array();
 	var procedures = [];
-	var contBeginEnd = 0;
-	var contParenteses = 0;
+	var beginEnd = [];
 
 	this.programa = programa(tokens);
 	this.setVN = setVN;
@@ -137,6 +136,7 @@ var Gramatica = function(tokens){
 		var endLine = 0;
 		var auxVar = [];
 		var auxPro;
+		var contParenteses = 0;
 
 		if(vT.length){
 			if(vT[0].tipo == "ID"){
@@ -195,13 +195,14 @@ var Gramatica = function(tokens){
 		return vT;
 	}
 
-	function comandoComposto(vT){
+	function comandoComposto(vT, contParenteses = 0){
 		//Verifica se começou o comandoComposto
+
 		if(vT.length){
 			if(vT[0].tipo == "BEGIN"){
-				++contBeginEnd;
+				beginEnd.push("begin");
 				vT.splice(0,1);
-				vT = comandoComposto(vT);
+				vT = comandoComposto(vT,contParenteses);
 			}
 		}
 
@@ -216,12 +217,12 @@ var Gramatica = function(tokens){
 					else
 						setReport("ELERROR",ELERROR);
 
-					vT = comandoComposto(vT);
+					vT = comandoComposto(vT,contParenteses);
 				}
 				else{
 					setReport("EXPERROR",EXPERROR);
 				}
-				vT = comandoComposto(vT);
+				vT = comandoComposto(vT,contParenteses);
 			}
 		}
 
@@ -261,23 +262,77 @@ var Gramatica = function(tokens){
 			if(vT[0].tipo == "IF"){
 				vT.splice(0,1);
 				if(vT[0].tipo == "AP"){
-					
+					++contParenteses;
+					vT.splice(0,1);
+					vT = expressao(vT);
+
+					if(vT[0].tipo == "FP"){
+						vT.splice(0,1);
+						--contParenteses;
+					}
+					else
+						setReport("PARERROR",PARERROR);
+				}
+				else{
+					vT = expressao(vT);
+				}
+
+				if(vT[0].tipo != "ELSE"){
+					if(vT[0].tipo == "THEN"){
+						vT.splice(0,1);
+						vT = comandoComposto(vT,contParenteses);
+					}
+					else
+						setReport("THENERROR",THENERROR);
+				}
+				else{
+					vT.splice(0,1);
+					vT = comandoComposto(vT,contParenteses);
 				}
 			}
+		}
+
+		//Comando Repetitivo
+		if(vT[0].tipo == "WHILE"){
+			vT.splice(0,1);
+			if(vT[0].tipo == "AP"){
+					++contParenteses;
+					vT.splice(0,1);
+					vT = expressao(vT);
+
+					if(vT[0].tipo == "FP"){
+						vT.splice(0,1);
+						--contParenteses;
+					}
+					else
+						setReport("PARERROR",PARERROR);
+				}
+				else{
+					vT = expressao(vT);
+				}
+
+				if(vT[0].tipo == "DO"){
+						vT.splice(0,1);
+						vT = comandoComposto(vT,contParenteses);
+					}
+					else
+						setReport("DOERROR",DOERROR);			
 		}
 
 		//End
 		if(vT.length){
 			if(vT[0].tipo == "END"){
 				vT.splice(0,1);
-				--contBeginEnd;
-				comandoComposto(vT);
+				beginEnd.pop();
+				comandoComposto(vT,contParenteses);
 			}
 		}
 
 		//Verifica se todos os begins fecharam
-		if(contBeginEnd != 0)
-			setReport("ENDERROR",ENDERROR);
+		if(!vT.length){
+			if(beginEnd.length)
+				setReport("ENDERROR",ENDERROR);
+		}
 
 		return vT;
 	}
@@ -286,8 +341,10 @@ var Gramatica = function(tokens){
 		if(vT[0].tipo == "ID"){	
 			if(variaveis.includes(vT[0].simbolo))
 				vT.splice(0,2);
-			else
-				setReport("NOEXST",vT[0]+NOEXST);
+			else{
+				setReport("NOEXST",vT[0].simbolo + NOEXST);
+				vT.splice(0,2);
+			}
 		}
 
 		if(vT[0].tipo == "ID"){
@@ -295,13 +352,60 @@ var Gramatica = function(tokens){
 				vT.splice(0,1);
 				vT = expressao(vT);
 			}
-			else
-				setReport("NOEXST",vT[0]+NOEXST);
+			else{
+				setReport("NOEXST",vT[0].simbolo + NOEXST);
+				vT.splice(0,1);
+			}
 		}
 		else{
 			if(vT[0].tipo != "END LINE"){
-				if(vT[0].tipo == "OPSOMA" || vT[0].tipo == "OPSUB" || vT[0].tipo == "INT" || vT[0].tipo == "REAL" || vT[0].tipo == "AP" ||  vT[0].tipo == "NOT"){
+				if(vT[0].tipo == "OPSOMA" || vT[0].tipo == "OPSUB" || vT[0].tipo == "INT" || vT[0].tipo == "REAL" || vT[0].tipo == "AP" ||  vT[0].tipo == "NOT" || vT[0].tipo == "OR"){
 					vT.splice(0,1);
+
+					if(vT[0].tipo == "IGUAL" || vT[0].tipo == "DIF" || vT[0].tipo == "MENOR" || vT[0].tipo == "MAIOR" || vT[0].tipo == "MENORIGUAL" || vT[0].tipo == "MAIORIGUAL"){
+						vT.splice(0,1);
+
+						if(vT[0].tipo == "OPSOMA" || vT[0].tipo == "OPSUB" || vT[0].tipo == "INT" || vT[0].tipo == "REAL" || vT[0].tipo == "AP" ||  vT[0].tipo == "NOT" || vT[0].tipo == "OR")
+							vT = expressao(vT);
+						else{
+							setReport("EXPERROR",EXPERROR);
+							vT = expressao(vT);
+						}
+					}
+
+					if(vT[0].tipo == "OPMUL" || vT[0].tipo == "DIV" || vT[0].tipo == "AND"){
+						vT.splice(0,1);
+						if(vT[0].tipo == "AP"){
+							let contP = 1;
+							vT.splice(0,1);
+							vT = expressao(vT);
+
+							if(vT[0].tipo == "FP")
+								--contP;
+
+							if(!contP)
+								setReport("PARERROR",PARERROR);
+
+							vT = expressao(vT);
+						}
+						else if(vT[0].tipo == "NOT"){
+							vT.splice(0,1);
+							if(vT[0].tipo == "ID" || vT[0].tipo == "REAL" || vT[0].tipo == "INT" || vT[0].tipo == "NOT" || vT[0].tipo == "AP")
+								vT = expressao(vT);
+							else{
+								setReport("EXPERROR",EXPERROR);
+								vT = expressao(vT);
+							}
+						}
+						else if(vT[0].tipo == "ID" || vT[0].tipo == "REAL" || vT[0].tipo == "INT"){
+							vT.splice(0,1);
+							vT = expressao(vT);
+						}
+						else{
+							setReport("EXPERROR",EXPERROR);
+							vT = expressao(vT);
+						}
+					}
 					vT = expressao(vT);
 				}
 				else

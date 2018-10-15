@@ -61,28 +61,71 @@ var analisadorLexico = function() {
 			while(noSpace[i] == "")
 				noSpace.splice(i,1);
 
-			if(noSpace[i] != undefined && noSpace[i].match(/,/)){
-				var pieceComma = noSpace[i].split(/,/);
+			if(noSpace[i] != undefined && noSpace[i].match(/(\+|-|\*|\/)/)){
+				var pieceSignal = noSpace[i].split(/(\+|-|\*|\/)/);
+				var tam = pieceSignal.length;
+				var cont = 0;
 
-				if(pieceComma[pieceComma.length-1] != ""){
+				if(pieceSignal[tam-1] != ""){
 					noSpace.splice(i,1);
-					noSpace.splice(i,0,pieceComma[0],",",pieceComma[pieceComma.length-1]);
-					i += 2;
+					while(pieceSignal.length){
+						noSpace.splice(i+cont,0,pieceSignal[0]);
+						pieceSignal.splice(0,1);
+						++cont;
+					}
+
+					i += cont - 1;
 				}
-				else{	
+			}
+
+			if(noSpace[i] != undefined && noSpace[i].match(/,/)){
+				var pieceComma = noSpace[i].split(/(,)/);
+				var tam = pieceComma.length;
+				var cont = 0;
+
+				if(pieceComma[tam-1] != ""){
 					noSpace.splice(i,1);
-					noSpace.splice(i,0,pieceComma[0],",");
-					i += 1;
+					while(pieceComma.length){
+						noSpace.splice(i+cont,0,pieceComma[0]);
+						pieceComma.splice(0,1);
+						++cont;
+					}
+
+					i += cont - 1;
 				}
 			}
 
 			if(noSpace[i] != undefined && noSpace[i].match(/:=/)){
-				var pieceAtr = noSpace[i].split(":=");
+				var pieceAtr = noSpace[i].split(/(:=)/);
+				var tam = pieceAtr.length;
+				var cont = 0;
 
-				if(pieceAtr[pieceAtr.length-1] != ""){
+				if(pieceAtr[tam-1] != ""){
 					noSpace.splice(i,1);
-					noSpace.splice(i,0,pieceAtr[0],":=",pieceAtr[pieceAtr.length-1]);
-					i += 2;
+					while(pieceAtr.length){
+						noSpace.splice(i+cont,0,pieceAtr[0]);
+						pieceAtr.splice(0,1);
+						++cont;
+					}
+
+					i += cont - 1;
+				}
+			}
+
+			if(noSpace[i] != undefined && noSpace[i].match(/(=|<>|<|<=|>=|>)/)){
+				var pieceRel = noSpace[i].split(/(=|<>|<|<=|>=|>)/);
+				var tam = pieceRel.length;
+				var cont = 0;
+
+				if(pieceRel[tam-1] != ""){
+					noSpace.splice(i,1);
+					while(pieceRel.length){
+						noSpace.splice(i+cont,0,pieceRel[0]);
+						pieceRel.splice(0,1);
+						++cont;
+					}
+
+					i += cont - 1;
 				}
 			}
 
@@ -101,71 +144,23 @@ var analisadorLexico = function() {
 				}
 			}
 
-			if(noSpace[i] != undefined && noSpace[i].match(/[(]/)){
-				var piecesAp = noSpace[i].split(/[(]/);
-				var cont = 0;
-				var offset = 0;
-
-				noSpace.splice(i,1);
-
-				for(let j = 0; j < piecesAp.length; j++){
-					if(piecesAp[j] == ""){
-						noSpace.splice(i+offset,0,"(");
-						if((j+1 < piecesAp.length) && piecesAp[j+1] != ""){
-							noSpace.splice(i+offset+1,0,"(");
-							++cont;
-							++offset;
-						}
-						++cont;
-						++offset;
-					}
-					else{
-						noSpace.splice(i+offset,0,piecesAp[j]);
-						if((j+1 < piecesAp.length) && piecesAp[j+1] != ""){
-							noSpace.splice(i+offset+1,0,"(");
-							++cont;
-							++offset;
-						}
-						++cont;
-						++offset;
-					}
-				}
-				i += cont-1;
-			}
-
-			if(noSpace[i] != undefined && noSpace[i].match(/[)]/)){
-				var piecesFp = noSpace[i].split(/[)]/);
-				var offset = 0;
+			if(noSpace[i] != undefined && noSpace[i].match(/(\(|\))/)){
+				var piecesAp = noSpace[i].split(/(\(|\))/);
+				var tam = piecesAp.length;
 				var cont = 0;
 
-				noSpace.splice(i,1);
+				if(piecesAp[tam-1] != ""){
+					noSpace.splice(i,1);
+					while(piecesAp.length){
+						noSpace.splice(i+cont,0,piecesAp[0]);
+						piecesAp.splice(0,1);
+						++cont;
+					}
 
-				for(let j = 0; j < piecesFp.length; j++){
-					if(piecesFp[j] == ""){
-						noSpace.splice(i+offset,0,")");
-						if((j+1 < piecesFp.length) && piecesFp[j+1] != ""){
-							noSpace.splice(i+offset+1,0,")");
-							++cont;
-							++offset;
-						}
-						++cont;
-						++offset;
-					}
-					else{
-						noSpace.splice(i+offset,0,piecesFp[j]);
-						if((j+1 < piecesFp.length) && piecesFp[j+1] != ""){
-							noSpace.splice(i+offset+1,0,")");
-							++cont;
-							++offset;
-						}
-						++cont;
-						++offset;
-					}
+					i += cont - 1;
 				}
-				i += cont - 1;
 			}
 		}
-
 
 		return noSpace;
 	}

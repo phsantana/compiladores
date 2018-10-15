@@ -21,3 +21,7 @@ const APERROR 		= "Abre parênteses não definido!";
 const FPERROR 		= "Fecha parênteses não definido!";
 
 const PARERROR 		= "Parênteses abertos e não fechados!";
+
+const THENERROR 	= "Then não está definido!";
+
+const DOERROR 		= "Do não está definido!";
