@@ -6,54 +6,6 @@ var analisadorLexico = function() {
 	this.analisarLexico = analisarLexico;
 	this.getTokens = getTokens;
 
-	// function preProcessadorEntrada(entrada){
-	// 	var aux = entrada;
-	// 	var lexemaAux;
-
-	// 	//Utiliza símbolos auxiliares "#" para dividir a entrada
-	// 	entrada = entrada.replace(/[0-9]+/g, "#");
-	// 	entrada = entrada.replace(/[\.]/g, "#");
-
-	// 	//Divide o array por tudo que não é número
-	// 	var numeros = aux.split(/[^0-9\.]+/);
-
-	// 	var operadores = entrada.split("#").filter(function(n){
-	// 		return n;
-	// 	});
-
-	// 	var lexemas = [];
-
-	// 	for (var cont = 0; cont < operadores.length; cont++) {
-	// 		//Tratando espaços vazios entre operadores
-	// 		if(operadores[cont].length > 1){
-	// 			lexemaAux = operadores[cont];
-	// 			lexemaAux = lexemaAux.split("").reverse().join();
-	// 			lexemaAux = lexemaAux.split(",");
-
-	// 			operadores.splice(cont, 1, lexemaAux[0]);
-
-	// 			for (var j = 1; j < lexemaAux.length; j++) {
-	// 				operadores.splice(i + j, 0, lexemaAux[j]);
-	// 			}
-	// 		}
-	// 	}
-
-
-	// 	for(var i = 0; i < numeros.length; i++){
-	// 		if(numeros[i] != "" && numeros[i] != " "){
-	// 			lexemas.push(numeros[i]);
-	// 		}
-	// 	}
-
-	// 	for(var i = 0; i < operadores.length; i++){
-	// 		if(operadores[i] != "" && operadores[i] != " "){
-	// 			lexemas.push(operadores[i]);
-	// 		}
-	// 	}
-
-	// 	return lexemas;
-	// }
-
 	function preProcessadorEntrada(entrada){
 		var noSpace = entrada.split(/\s/);
 
