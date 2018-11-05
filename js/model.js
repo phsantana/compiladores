@@ -5,6 +5,13 @@ var content = {
 
 /******************EVENTOS******************/
 
+window.addEventListener("load",function(){
+	var entrada = {
+		cadeia: "a",
+		token: "ID",
+	}
+});
+
 document.querySelector("#menu").onclick = function(){
 
 	var sidebar = document.querySelector("#sidebar");
