@@ -6,7 +6,7 @@
 	<meta charset=utf-8>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="js/materialize.min.js"></script>
+	<script src="js/materialize/materialize.min.js"></script>
 	<link rel="stylesheet" href="assets/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/animations.css">
@@ -33,6 +33,9 @@
 								ANALISADOR LÉXICO</
 							</li>
 							<li id="sintatico" class="right tw_cent">
+								ANALISADOR SINTÁTICO
+							</li>
+							<li id="semantico" class="right tw_cent">
 								ANALISADOR SINTÁTICO
 							</li>
 							<li id="entrada" class="right tw_cent">
@@ -71,14 +74,14 @@
 </body>
 </html>
 
-<script src="js/helper.js"></script>
-<script src="js/tabelaTokens.js"></script>
-<script src="js/tabelaMensagens.js"></script>
-<script src="js/analisadorLexico.js"></script>
-<script src="js/gramatica.js"></script>
-<script src="js/analisadorSintatico.js"></script>
-<script src="js/analisadorSemantico.js"></script>
-<script src="js/frontend.js"></script>
-<script src="js/model.js"></script>
-<script src="js/compilador.js"></script>
-<script src="js/controller.js"></script>
+<script src="js/helpers/helper.js"></script>
+<script src="js/analisadores/lexico/tabelaTokens.js"></script>
+<script src="js/helpers/tabelaMensagens.js"></script>
+<script src="js/analisadores/lexico/analisadorLexico.js"></script>
+<script src="js/analisadores/sintatico/gramatica.js"></script>
+<script src="js/analisadores/sintatico/analisadorSintatico.js"></script>
+<script src="js/analisadores/semantico/analisadorSemantico.js"></script>
+<script src="js/frontend/frontend.js"></script>
+<script src="js/model/model.js"></script>
+<script src="js/analisadores/compilador.js"></script>
+<script src="js/controller/controller.js"></script>
