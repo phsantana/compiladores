@@ -1,18 +1,15 @@
 function choosePath(flag){
-	var main 		 = createDIV(["cover"]);
-	main.style.backgroundColor = "rgba(0,0,0,.95)";
-	main.style.display = "block";
-	main.style.zIndex = '5';
-	main.style.top = "0";
-	main.style.transition = "all ease .5s";
+	var main = element({tipo: "div", class: "cover", style: "background-color: rgba(0,0,0,.95); display: block; z-index: 5; top: 0; transition: all ease .5s;"});
 
-	var hTxt = createTopo(2,"black",".txt","center");
-	var hTerm = createTopo(2,"black","abc","center");
+	var hTxt = {tipo: "h2", class: "levenim", texto: ".txt", style: "color: black; text-align: center"};
 
-	hTxt.classList.add("levenim");
-	hTerm.classList.add("levenim");
+	var hTerm = Object.assign({},hTxt);
+	hTerm.texto = "abc";
 
-	var container = createDIV(["container-choose-path"]);
+	hTxt = element(hTxt);
+	hTerm = element(hTerm);
+
+	var container = element({tipo: "div", class: "container-choose-path"});
 
 	var r1 = createRow();
 	var colInfo = createCol(12);
@@ -24,7 +21,6 @@ function choosePath(flag){
 	r1.appendChild(colInfo);
 	colInfo.appendChild(h4);
 	main.appendChild(r1);
-	// colInfo.classList.add("center");
 
 	var row 	= createRow();
 	var colTxt 	= createCol(6);
@@ -115,8 +111,8 @@ function startIcons(){
 
 function rollTitle(cont = 0){
 	var titulo	= document.querySelector("#titulo");
-	var pai 	= titulo.parentNode;
-	var titulos = ["COMPILADORES","ANALISADOR LÉXICO", "ANALISADOR SINTÁTICO"];
+	var pai 	= titulo.parentElement;
+	var titulos = ["COMPILADORES","ANALISADOR LÉXICO", "ANALISADOR SINTÁTICO","ANALISADOR SEMÂNTICO"];
 
 	setTimeout(function(){
 		if(cont < titulos.length){
@@ -131,11 +127,9 @@ function rollTitle(cont = 0){
 	},1000);
 
 	setTimeout(function(){
-
 		pai.removeChild(titulo);
 		titulo.style.animation = "fadeOutUp 1.1s ease";
 		pai.appendChild(titulo);
-
 		rollTitle(cont);
 	},3000);
 }

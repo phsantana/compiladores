@@ -5,13 +5,22 @@ var Gramatica = function(tokens){
 	var variaveis 	= [];
 	var procedures 	= [];
 	var beginEnd 	= [];
-	var semanticInfo = [];
 
 	this.programa = programa(tokens);
 	this.setVN = setVN;
 	this.setVT = setVT;
 	this.getVN = getVN;
 	this.getVT = getVT;
+	this.getVariaveis = getVariaveis;
+	this.getProcedures = getProcedures;
+
+	function getVariaveis(){
+		return variaveis;
+	}
+
+	function getProcedures(){
+		return procedures;
+	}
 
 	function setVN(vN){
 		this.vN = vN;

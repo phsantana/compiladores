@@ -3,7 +3,23 @@
 var bg 		= document.createElement("div");
 var body 	= document.querySelector("body");
 
+var isUndefined = element => element === undefined;
+
 /*************FUNÇÕES AUXILIARES***************/
+
+var element = obj => {
+	var el = document.createElement(obj.tipo);
+	delete obj.tipo;
+
+	if("texto" in obj){
+		el.innerText = obj.texto;
+		delete obj.texto;
+	}
+
+	setAttributes(el,obj);
+
+	return el;
+}
 
 function createDIV(classe,title){
 	var div = document.createElement("div");
@@ -204,28 +220,28 @@ function createLabel(link, classe){
 function addAnimation(obj,nome,duracao,tipo){
 //Adiciona animações ao elemento
 var animations = [
-	"fadeIn",
-	"fadeInLeft",
-	"fadeInRight",
-	"fadeInDown",
-	"fadeInUp",
-	"fadeOut",
-	"fadeOutLeft",
-	"fadeOutRight",
-	"fadeOutDown",
-	"fadeOutUp",
-	"slideRight",
-	"slideIn",
-	"slideOut",
-	"inArrow",
-	"inMenu",
-	"pop",
-	"popupIn",
-	"popupOut",
-	"blub",
-	"grow",
-	"comeLeft",
-	"growNDecrease"
+"fadeIn",
+"fadeInLeft",
+"fadeInRight",
+"fadeInDown",
+"fadeInUp",
+"fadeOut",
+"fadeOutLeft",
+"fadeOutRight",
+"fadeOutDown",
+"fadeOutUp",
+"slideRight",
+"slideIn",
+"slideOut",
+"inArrow",
+"inMenu",
+"pop",
+"popupIn",
+"popupOut",
+"blub",
+"grow",
+"comeLeft",
+"growNDecrease"
 ];
 
 obj.style.animation = animations[nome]+" "+duracao+"s"+" "+tipo;
@@ -234,21 +250,21 @@ obj.style.animation = animations[nome]+" "+duracao+"s"+" "+tipo;
 function setFont(obj, fonte){
 //Altera a fonte de um elemento
 var fontes = [
-	"brandon_r",
-	"brandon_t",
-	"brandon_l",
-	"brandon_n",
-	"brandon_m",
-	"tw_cent",
-	"levenim",
-	"poiret",
-	"gtamerica_l",
-	"gtamerica_ui",
-	"gtamerica",
-	"tw_cent_cnd"
+"brandon_r",
+"brandon_t",
+"brandon_l",
+"brandon_n",
+"brandon_m",
+"tw_cent",
+"levenim",
+"poiret",
+"gtamerica_l",
+"gtamerica_ui",
+"gtamerica",
+"tw_cent_cnd"
 ];
 
-	obj.classList.add(fontes[fonte]);
+obj.classList.add(fontes[fonte]);
 }
 
 function setAttributes(el,atts){
